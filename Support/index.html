@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Підтримати — Асоціація сприяння безпеці на транспорті України</title>
+
+  <style>
+    :root{
+      --brand:#0a3d91;          /* синій фон шапки */
+      --text:#111827;
+      --bg-overlay: rgba(0,0,0,0.35);
+      --btn-orange:#f97316;
+      --btn-blue:#2563eb;
+      --page-bg:#dfe8f2;        /* сіро-блакитний */
+      --brand-blue:#87ceeb;     /* блакитний акцент */
+      --card-bg:#ffffff;
+      --card-border:#e5e7eb;
+      --input:#f9fafb;
+      --border:#d1d5db;
+      --ok:#16a34a;
+      --err:#dc2626;
+      --link:#0a3d91;
+    }
+
+    html,body{ height:100%; margin:0; }
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--page-bg);
+      background-image: url('../image1.png'); /* той самий фон */
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    /* Шапка (уніфіковано) */
+    header{
+      background: var(--brand);
+      color:#fff;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      position: relative;
+      top: 8mm;
+    }
+    .brand{
+      font-weight:700;
+      font-size:45px;
+      white-space:nowrap;
+      color: var(--brand-blue);
+    }
+
+    .lang-switch{
+      display:flex; align-items:center; gap:8px;
+      color: #f5deb3; font-size:14px;
+      margin-left: 16px;
+    }
+    .lang-switch a{
+      color: #f5deb3;
+      text-decoration:none; cursor:pointer;
+    }
+    .lang-switch a.active{ text-decoration:underline; }
+    .lang-sep{ opacity:.7; }
+
+    .top-actions{
+      margin-left:auto;
+      display:flex; align-items:center; gap:8px;
+    }
+    .btn{
+      display:inline-block; padding:8px 14px; border-radius:6px;
+      font-weight:700; color:#fff; text-decoration:none; font-size:14px;
+      box-shadow:0 1px 3px rgba(0,0,0,.25);
+    }
+    .btn.orange{ background:var(--btn-orange); }
+    .btn.blue{   background:var(--btn-blue); }
+
+    /* Меню під шапкою — праворуч */
+    .subnav{
+      position: relative;
+      top: 8mm;
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 10px 18px 0 18px;
+    }
+    .subnav a{
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .subnav a:hover{ text-decoration: underline; }
+
+    /* Контент */
+    main{
+      flex:1 0 auto;
+      position: relative;
+      margin-top: 12mm;      /* щоб не заходити на subnav */
+      padding: 18px;
+    }
+
+    .wrap{
+      max-width: 1120px;
+      background: rgba(255,255,255,0.94);
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.18);
+      padding: 24px;
+      margin-left: 18px;
+      backdrop-filter: blur(1px);
+    }
+    .wrap h1{
+      margin:0 0 10px 0;
+      font-size: 28px;
+      color: var(--brand);
+      line-height:1.25;
+    }
+    .wrap p.lead{
+      margin: 0 0 14px 0;
+      font-size: 16px;
+      line-height:1.55;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .card{
+      background: var(--card-bg);
+      border:1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    }
+    .card h2{
+      margin:0 0 8px 0;
+      font-size: 18px;
+      color: var(--brand);
+    }
+    .card p{ margin:0 0 10px 0; font-size:14px; line-height:1.55; color:#333; }
+    .divider{ height:1px; background:#eef2f7; margin:10px 0; }
+
+    /* Форма внеску (демо, без процесингу) */
+    .field{ display:flex; flex-direction:column; margin: 8px 0; }
+    .field label{ font-size: 13px; margin-bottom: 6px; color:#374151; }
+    .field input, .field select{
+      background: var(--input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .btn-submit{
+      background: var(--btn-blue);
+      color:#fff;
+      border:none;
+      padding:10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor:pointer;
+    }
+    .msg{ font-size: 13px; }
+    .msg.ok{ color: var(--ok); }
+    .msg.err{ color: var(--err); }
+
+    .bank{
+      background:#fff;
+      border:1px dashed #c9d4e6;
+      border-radius:10px;
+      padding:12px;
+      font-size:14px;
+      line-height:1.5;
+      word-break: break-word;
+    }
+    .bank code{
+      background:#f3f4f6; padding:2px 4px; border-radius:4px;
+    }
+
+    .note{
+      font-size: 12px; color:#6b7280; margin-top:10px;
+    }
+
+    /* Нижня синя полоса з бігучою строкою */
+    .bottom-bar{
+      background: var(--brand);
+      height: 60px;
+      margin-top: 8mm;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee{
+      display: flex;
+      white-space: nowrap;
+      animation: scroll 25s linear infinite;
+      gap: 3mm;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    @keyframes scroll {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    footer{
+      flex-shrink:0;
+      text-align:center;
+      padding:14px 10px;
+      font-size:14px;
+      color:#222;
+      background: transparent;
+    }
+
+    /* Адаптація */
+    @media (max-width: 1000px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px){
+      .wrap{ margin: 0 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header>
+    <div id="brand" class="brand">Асоціація сприяння безпеці на транспорті України</div>
+    <div class="lang-switch" aria-label="Language switcher">
+      <a id="lang-uk" class="active">УКР</a>
+      <span class="lang-sep">|</span>
+      <a id="lang-en">ENG</a>
+    </div>
+    <div class="top-actions">
+      <a id="btn-join"    class="btn orange" href="../Join/index.html">Долучитись</a>
+      <a id="btn-support" class="btn blue"   href="../Support/index.html">Підтримати</a>
+    </div>
+  </header>
+
+  <!-- Меню під шапкою -->
+  <div class="subnav">
+    <a id="nav-home"     href="../Home/index.html">Головна</a>
+    <a id="nav-about"    href="../About/index.html">Про нас</a>
+    <a id="nav-programs" href="../Programs/index.html">Програми</a>
+    <a id="nav-join"     href="../Join/index.html">Долучитись</a>
+    <a id="nav-support"  href="../Support/index.html">Підтримати</a>
+    <a id="nav-pubs"     href="../Publications/index.html">Публікації</a>
+    <a id="nav-contacts" href="../Contacts/index.html">Контакти</a>
+  </div>
+
+  <!-- Контент -->
+  <main>
+    <section class="wrap" aria-label="Підтримати">
+      <h1 id="h1">Підтримати</h1>
+      <p id="lead" class="lead">
+        Ваша підтримка допомагає просувати європейські норми в громадських перевезеннях, розвитку аналітики та навчальних програм.
+      </p>
+
+      <div class="grid">
+        <!-- Ліва колонка: форма (демо) + швидкі суми -->
+        <div class="left card">
+          <h2 id="don-title">Зробити внесок (демо)</h2>
+          <p id="don-desc">Це демонстраційна форма без онлайн-оплати. Після затвердження ми підв’яжемо реальний платіжний сервіс.</p>
+
+          <form id="don-form" onsubmit="return false;">
+            <div class="field">
+              <label id="amount-l" for="amount">Сума, UAH</label>
+              <input id="amount" name="amount" type="number" min="10" step="10" placeholder="200" required />
+            </div>
+            <div class="field">
+              <label id="purpose-l" for="purpose">Ціль внеску</label>
+              <select id="purpose" name="purpose" required>
+                <option value="general" selected>Статутна діяльність</option>
+                <option value="research">Дослідження та аналітика</option>
+                <option value="training">Навчальні програми</option>
+                <option value="advocacy">Адвокація</option>
+              </select>
+            </div>
+            <div class="field">
+              <label id="name-l" for="name">Ваше ім’я</label>
+              <input id="name" name="name" type="text" placeholder="Ім’я Прізвище" required />
+            </div>
+            <div class="field">
+              <label id="email-l" for="email">Email (для квитанції)</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="actions" style="display:flex; gap:10px; align-items:center; margin-top:10px;">
+              <button id="don-send" class="btn-submit" type="submit">Підтримати</button>
+              <span id="don-msg" class="msg"></span>
+            </div>
+          </form>
+
+          <div class="divider"></div>
+
+          <p id="quick-title" style="font-weight:700; color:#374151; margin:0 0 8px 0;">Швидкий вибір суми:</p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn" style="background:#334155" onclick="setAmount(200)">200</button>
+            <button class="btn" style="background:#334155" onclick="setAmount(500)">500</button>
+            <button class="btn" style="background:#334155" onclick="setAmount(1000)">1000</button>
+            <button class="btn" style="background:#334155" onclick="setAmount(2500)">2500</button>
+          </div>
+        </div>
+
+        <!-- Права колонка: реквізити/платформи -->
+        <div class="right card">
+          <h2 id="bank-title">Реквізити (плейсхолдери)</h2>
+          <div class="bank" id="bank-ua">
+            <p><strong>UA рахунок (UAH):</strong></p>
+            <p>Отримувач: <code>[НАЗВА ОРГАНІЗАЦІЇ]</code></p>
+            <p>IBAN: <code>[UAxxxxxxxxxxxxxxxxxxxxxxxxxxxx]</code></p>
+            <p>Код ЄДРПОУ: <code>[xxxxxxx]</code></p>
+            <p>Банк: <code>[НАЗВА БАНКУ]</code></p>
+            <p>Призначення платежу: <code>Благодійний внесок на статутну діяльність</code></p>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="bank" id="bank-intl">
+            <p><strong>Міжнародні внески (EUR/USD):</strong></p>
+            <p>Бенефіціар: <code>[ORGANIZATION NAME]</code></p>
+            <p>IBAN: <code>[IBAN]</code></p>
+            <p>SWIFT/BIC: <code>[SWIFT]</code></p>
+            <p>Банк: <code>[BANK NAME, COUNTRY]</code></p>
+            <p>Purpose: <code>Charitable contribution</code></p>
+          </div>
+
+          <div class="divider"></div>
+
+          <p id="plat-title" style="font-weight:700; color:#374151; margin:0 0 8px 0;">Платіжні платформи (за потреби):</p>
+          <ul style="margin:0; padding-left:18px; font-size:14px; line-height:1.55;">
+            <li><a id="plat-1" class="link" href="#" onclick="return false;">[PayPal/Stripe/WayForPay — додати пізніше]</a></li>
+            <li><a id="plat-2" class="link" href="#" onclick="return false;">[LiqPay — додати пізніше]</a></li>
+            <li><a id="plat-3" class="link" href="#" onclick="return false;">[Інша платформа — додати пізніше]</a></li>
+          </ul>
+
+          <p class="note" id="legal-note">
+            Примітка: реквізити та платформи є плейсхолдерами. Офіційні дані надає організація. 
+            Розділ «Правила/Політика конфіденційності/Оферта» — <em>підготувати та погодити з юристом</em>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Низ сторінки з бігучою строкою -->
+  <div class="bottom-bar">
+    <div class="marquee">
+      <span id="marquee-text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
+    </div>
+  </div>
+
+  <footer>
+    ©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+  </footer>
+
+  <!-- Двомовність + демо-логіка форми -->
+  <script>
+    function setAmount(val){
+      document.getElementById('amount').value = val;
+    }
+
+    (function(){
+      const COPY = {
+        uk: {
+          brand: "Асоціація сприяння безпеці на транспорті України",
+          nav: {
+            home:"Головна", about:"Про нас", programs:"Програми", join:"Долучитись",
+            support:"Підтримати", pubs:"Публікації", contacts:"Контакти"
+          },
+          cta: { join:"Долучитись", support:"Підтримати" },
+
+          page: {
+            h1: "Підтримати",
+            lead: "Ваша підтримка допомагає просувати європейські норми в громадських перевезеннях, розвитку аналітики та навчальних програм.",
+
+            donTitle: "Зробити внесок (демо)",
+            donDesc: "Це демонстраційна форма без онлайн-оплати. Після затвердження ми підв’яжемо реальний платіжний сервіс.",
+            labels: {
+              amount:"Сума, UAH",
+              purpose:"Ціль внеску",
+              name:"Ваше ім’я",
+              email:"Email (для квитанції)"
+            },
+            purposes:{
+              general:"Статутна діяльність", research:"Дослідження та аналітика",
+              training:"Навчальні програми", advocacy:"Адвокація"
+            },
+            send:"Підтримати",
+            ok:"Дякуємо за підтримку! (демо)",
+            err:"Перевірте поля форми.",
+
+            bankTitle:"Реквізити (плейсхолдери)",
+            quickTitle:"Швидкий вибір суми:",
+            platTitle:"Платіжні платформи (за потреби):",
+            legalNote:"Примітка: реквізити та платформи є плейсхолдерами. Офіційні дані надає організація. Розділ «Правила/Політика конфіденційності/Оферта» — підготувати та погодити з юристом."
+          },
+          marquee: "АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE"
+        },
+
+        en: {
+          brand: "Transportation Safety Association of Ukraine",
+          nav: {
+            home:"Home", about:"About", programs:"Programs", join:"Get Involved",
+            support:"Support", pubs:"Publications", contacts:"Contacts"
+          },
+          cta: { join:"Join", support:"Support" },
+
+          page: {
+            h1: "Support",
+            lead: "Your support helps advance EU standards in public transport, develop analytics, and run training programs.",
+
+            donTitle: "Make a contribution (demo)",
+            donDesc: "This is a demo form without online payment. We’ll connect a live payment service after approval.",
+            labels: {
+              amount:"Amount, UAH",
+              purpose:"Purpose",
+              name:"Your name",
+              email:"Email (for receipt)"
+            },
+            purposes:{
+              general:"General activities", research:"Research & analytics",
+              training:"Training programs", advocacy:"Advocacy"
+            },
+            send:"Support",
+            ok:"Thank you for your support! (demo)",
+            err:"Please check the fields.",
+
+            bankTitle:"Bank details (placeholders)",
+            quickTitle:"Quick amounts:",
+            platTitle:"Payment platforms (optional):",
+            legalNote:"Note: details and platforms are placeholders. Official data provided by the organization. Legal pages (Terms/Privacy/Offer) to be prepared with counsel."
+          },
+          marquee: "TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ"
+        }
+      };
+
+      const els = {
+        brand: document.getElementById('brand'),
+        navHome: document.getElementById('nav-home'),
+        navAbout: document.getElementById('nav-about'),
+        navPrograms: document.getElementById('nav-programs'),
+        navJoin: document.getElementById('nav-join'),
+        navSupport: document.getElementById('nav-support'),
+        navPubs: document.getElementById('nav-pubs'),
+        navContacts: document.getElementById('nav-contacts'),
+        btnJoin: document.getElementById('btn-join'),
+        btnSupport: document.getElementById('btn-support'),
+
+        h1: document.getElementById('h1'),
+        lead: document.getElementById('lead'),
+
+        donTitle: document.getElementById('don-title'),
+        donDesc: document.getElementById('don-desc'),
+
+        amountL: document.getElementById('amount-l'),
+        purposeL: document.getElementById('purpose-l'),
+        nameL: document.getElementById('name-l'),
+        emailL: document.getElementById('email-l'),
+
+        purpose: document.getElementById('purpose'),
+        sendBtn: document.getElementById('don-send'),
+        msg: document.getElementById('don-msg'),
+
+        quickTitle: document.getElementById('quick-title'),
+        bankTitle: document.getElementById('bank-title'),
+        platTitle: document.getElementById('plat-title'),
+        legalNote: document.getElementById('legal-note'),
+
+        marquee: document.getElementById('marquee-text'),
+
+        langUk: document.getElementById('lang-uk'),
+        langEn: document.getElementById('lang-en'),
+      };
+
+      function setLang(lang){
+        const t = COPY[lang];
+        if(!t) return;
+
+        // Шапка / меню / CTA
+        els.brand.textContent = t.brand;
+        els.navHome.textContent = t.nav.home;
+        els.navAbout.textContent = t.nav.about;
+        els.navPrograms.textContent = t.nav.programs;
+        els.navJoin.textContent = t.nav.join;
+        els.navSupport.textContent = t.nav.support;
+        els.navPubs.textContent = t.nav.pubs;
+        els.navContacts.textContent = t.nav.contacts;
+        els.btnJoin.textContent = t.cta.join;
+        els.btnSupport.textContent = t.cta.support;
+
+        // Заголовки + описи
+        els.h1.textContent = t.page.h1;
+        els.lead.textContent = t.page.lead;
+        els.donTitle.textContent = t.page.donTitle;
+        els.donDesc.textContent = t.page.donDesc;
+
+        // Лейбли
+        els.amountL.textContent = t.page.labels.amount;
+        els.purposeL.textContent = t.page.labels.purpose;
+        els.nameL.textContent = t.page.labels.name;
+        els.emailL.textContent = t.page.labels.email;
+
+        // Опції цілей
+        const opts = els.purpose.options;
+        if(opts.length>=4){
+          opts[0].text = t.page.purposes.general;
+          opts[1].text = t.page.purposes.research;
+          opts[2].text = t.page.purposes.training;
+          opts[3].text = t.page.purposes.advocacy;
+        }
+
+        // Кнопка
+        els.sendBtn.textContent = t.page.send;
+        els.sendBtn.dataset.ok = t.page.ok;
+        els.sendBtn.dataset.err = t.page.err;
+
+        // Інші тексти
+        els.quickTitle.textContent = t.page.quickTitle;
+        els.bankTitle.textContent = t.page.bankTitle;
+        els.platTitle.textContent = t.page.platTitle;
+        els.legalNote.textContent = t.page.legalNote;
+
+        // Бігучий рядок
+        els.marquee.textContent = (lang==='uk'?COPY.uk.marquee:COPY.en.marquee);
+
+        // Активний перемикач
+        document.documentElement.lang = (lang === 'uk') ? 'uk' : 'en';
+        if(lang === 'uk'){
+          els.langUk.classList.add('active');
+          els.langEn.classList.remove('active');
+        }else{
+          els.langEn.classList.add('active');
+          els.langUk.classList.remove('active');
+        }
+      }
+
+      // Демонстраційна "відправка"
+      document.getElementById('don-form').addEventListener('submit', function(){
+        const amount = document.getElementById('amount').value.trim();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        if(amount && name && email){
+          document.getElementById('don-msg').textContent = document.getElementById('don-send').dataset.ok || 'OK';
+          document.getElementById('don-msg').className = 'msg ok';
+        }else{
+          document.getElementById('don-msg').textContent = document.getElementById('don-send').dataset.err || 'Error';
+          document.getElementById('don-msg').className = 'msg err';
+        }
+      });
+
+      // Перемикач мови
+      document.getElementById('lang-uk').addEventListener('click', function(){ setLang('uk'); });
+      document.getElementById('lang-en').addEventListener('click', function(){ setLang('en'); });
+
+      setLang('uk'); // мова за замовчуванням
+    })();
+  </script>
+</body>
+</html>

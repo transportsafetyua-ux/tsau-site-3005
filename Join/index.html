@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Долучитись — Асоціація сприяння безпеці на транспорті України</title>
+
+  <style>
+    :root{
+      --brand:#0a3d91;          /* синій фон шапки */
+      --text:#111827;
+      --bg-overlay: rgba(0,0,0,0.35);
+      --btn-orange:#f97316;
+      --btn-blue:#2563eb;
+      --page-bg:#dfe8f2;        /* сіро-блакитний */
+      --brand-blue:#87ceeb;     /* блакитний акцент */
+      --card-bg:#ffffff;
+      --card-border:#e5e7eb;
+      --input:#f9fafb;
+      --border:#d1d5db;
+      --ok:#16a34a;
+      --err:#dc2626;
+      --link:#0a3d91;
+    }
+
+    html,body{ height:100%; margin:0; }
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--page-bg);
+      background-image: url('../image1.png'); /* той самий фон */
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    /* Шапка (уніфіковано) */
+    header{
+      background: var(--brand);
+      color:#fff;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      position: relative;
+      top: 8mm;
+    }
+    .brand{
+      font-weight:700;
+      font-size:45px;
+      white-space:nowrap;
+      color: var(--brand-blue);
+    }
+
+    .lang-switch{
+      display:flex; align-items:center; gap:8px;
+      color: #f5deb3; font-size:14px;
+      margin-left: 16px;
+    }
+    .lang-switch a{
+      color: #f5deb3;
+      text-decoration:none; cursor:pointer;
+    }
+    .lang-switch a.active{ text-decoration:underline; }
+    .lang-sep{ opacity:.7; }
+
+    .top-actions{
+      margin-left:auto;
+      display:flex; align-items:center; gap:8px;
+    }
+    .btn{
+      display:inline-block; padding:8px 14px; border-radius:6px;
+      font-weight:700; color:#fff; text-decoration:none; font-size:14px;
+      box-shadow:0 1px 3px rgba(0,0,0,.25);
+    }
+    .btn.orange{ background:var(--btn-orange); }
+    .btn.blue{   background:var(--btn-blue); }
+
+    /* Меню під шапкою — праворуч */
+    .subnav{
+      position: relative;
+      top: 8mm;
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 10px 18px 0 18px;
+    }
+    .subnav a{
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .subnav a:hover{ text-decoration: underline; }
+
+    /* Контент */
+    main{
+      flex:1 0 auto;
+      position: relative;
+      margin-top: 12mm;      /* щоб не заходити на subnav */
+      padding: 18px;
+    }
+
+    .wrap{
+      max-width: 1120px;
+      background: rgba(255,255,255,0.94);
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.18);
+      padding: 24px;
+      margin-left: 18px;
+      backdrop-filter: blur(1px);
+    }
+    .wrap h1{
+      margin:0 0 10px 0;
+      font-size: 28px;
+      color: var(--brand);
+      line-height:1.25;
+    }
+    .wrap p.lead{
+      margin: 0 0 14px 0;
+      font-size: 16px;
+      line-height:1.55;
+    }
+
+    /* Три карти: волонтерство, партнерство, підписка */
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .card{
+      background: var(--card-bg);
+      border:1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .card h2{
+      margin:0;
+      font-size: 18px;
+      color: var(--brand);
+    }
+    .card p{ margin:0; font-size:14px; line-height:1.55; color:#333; }
+    .card .actions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; }
+
+    .link{
+      color: var(--link);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .link:hover{ text-decoration: underline; }
+
+    /* Форма волонтера/підписки */
+    .field{
+      display:flex; flex-direction:column;
+      margin: 8px 0;
+    }
+    .field label{
+      font-size: 13px;
+      margin-bottom: 6px;
+      color:#374151;
+    }
+    .field input, .field select{
+      background: var(--input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .btn-submit{
+      background: var(--btn-blue);
+      color:#fff;
+      border:none;
+      padding:10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor:pointer;
+    }
+    .msg{ font-size: 13px; }
+    .msg.ok{ color: var(--ok); }
+    .msg.err{ color: var(--err); }
+
+    /* Нижня синя полоса з бігучою строкою */
+    .bottom-bar{
+      background: var(--brand);
+      height: 60px;
+      margin-top: 8mm;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee{
+      display: flex;
+      white-space: nowrap;
+      animation: scroll 25s linear infinite;
+      gap: 3mm;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    @keyframes scroll {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    footer{
+      flex-shrink:0;
+      text-align:center;
+      padding:14px 10px;
+      font-size:14px;
+      color:#222;
+      background: transparent;
+    }
+
+    /* Адаптація */
+    @media (max-width: 1000px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px){
+      .wrap{ margin: 0 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header>
+    <div id="brand" class="brand">Асоціація сприяння безпеці на транспорті України</div>
+    <div class="lang-switch" aria-label="Language switcher">
+      <a id="lang-uk" class="active">УКР</a>
+      <span class="lang-sep">|</span>
+      <a id="lang-en">ENG</a>
+    </div>
+    <div class="top-actions">
+      <a id="btn-join"    class="btn orange" href="../Join/index.html">Долучитись</a>
+      <a id="btn-support" class="btn blue"   href="../Support/index.html">Підтримати</a>
+    </div>
+  </header>
+
+  <!-- Меню під шапкою -->
+  <div class="subnav">
+    <a id="nav-home"     href="../Home/index.html">Головна</a>
+    <a id="nav-about"    href="../About/index.html">Про нас</a>
+    <a id="nav-programs" href="../Programs/index.html">Програми</a>
+    <a id="nav-join"     href="../Join/index.html">Долучитись</a>
+    <a id="nav-support"  href="../Support/index.html">Підтримати</a>
+    <a id="nav-pubs"     href="../Publications/index.html">Публікації</a>
+    <a id="nav-contacts" href="../Contacts/index.html">Контакти</a>
+  </div>
+
+  <!-- Контент -->
+  <main>
+    <section class="wrap" aria-label="Долучитись">
+      <h1 id="h1">Долучитись</h1>
+      <p id="lead" class="lead">
+        Оберіть зручний спосіб участі: волонтерство, партнерство або підписка на оновлення.
+      </p>
+
+      <div class="grid">
+        <!-- 1) Волонтерство -->
+        <article class="card" aria-labelledby="vol-title">
+          <h2 id="vol-title">Волонтерство</h2>
+          <p id="vol-desc">Долучайтесь до досліджень, аналітики й освітніх ініціатив у сфері громадських перевезень.</p>
+
+          <form id="vol-form" onsubmit="return false;">
+            <div class="field">
+              <label id="vol-name-l" for="vol-name">Ваше ім’я</label>
+              <input id="vol-name" name="name" type="text" placeholder="Ім’я Прізвище" required />
+            </div>
+            <div class="field">
+              <label id="vol-email-l" for="vol-email">Email</label>
+              <input id="vol-email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label id="vol-area-l" for="vol-area">Напрям</label>
+              <select id="vol-area" name="area" required>
+                <option value="research" selected>Дослідження та аналітика</option>
+                <option value="training">Освітні активності</option>
+                <option value="advocacy">Адвокація</option>
+                <option value="it">IT/дані</option>
+              </select>
+            </div>
+            <div class="actions">
+              <button id="vol-send" class="btn-submit" type="submit">Надіслати</button>
+              <span id="vol-msg" class="msg"></span>
+            </div>
+          </form>
+        </article>
+
+        <!-- 2) Партнерство -->
+        <article class="card" aria-labelledby="par-title">
+          <h2 id="par-title">Партнерство</h2>
+          <p id="par-desc">Органи влади, бізнес і міжнародні організації — співпрацюймо для впровадження європейських норм.</p>
+          <div class="actions">
+            <a id="par-cta" class="link" href="../Contacts/index.html">Зв’язатися &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 3) Підписка -->
+        <article class="card" aria-labelledby="sub-title">
+          <h2 id="sub-title">Підписка</h2>
+          <p id="sub-desc">Отримуйте анонси навчальних програм та нові публікації (окремі статті й позиції).</p>
+
+          <form id="sub-form" onsubmit="return false;">
+            <div class="field">
+              <label id="sub-email-l" for="sub-email">Email</label>
+              <input id="sub-email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="actions">
+              <button id="sub-send" class="btn-submit" type="submit">Підписатись</button>
+              <span id="sub-msg" class="msg"></span>
+            </div>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Низ сторінки з бігучою строкою -->
+  <div class="bottom-bar">
+    <div class="marquee">
+      <span id="marquee-text">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
+    </div>
+  </div>
+
+  <footer>
+    ©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+  </footer>
+
+  <!-- Двомовність + прості повідомлення форм (демо) -->
+  <script>
+    (function(){
+      const COPY = {
+        uk: {
+          brand: "Асоціація сприяння безпеці на транспорті України",
+          nav: {
+            home:"Головна", about:"Про нас", programs:"Програми", join:"Долучитись",
+            support:"Підтримати", pubs:"Публікації", contacts:"Контакти"
+          },
+          cta: { join:"Долучитись", support:"Підтримати" },
+
+          page: {
+            h1: "Долучитись",
+            lead: "Оберіть зручний спосіб участі: волонтерство, партнерство або підписка на оновлення.",
+
+            volTitle: "Волонтерство",
+            volDesc: "Долучайтесь до досліджень, аналітики й освітніх ініціатив у сфері громадських перевезень.",
+            volLabels: { name:"Ваше ім’я", email:"Email", area:"Напрям" },
+            volAreas: {
+              research:"Дослідження та аналітика",
+              training:"Освітні активності",
+              advocacy:"Адвокація",
+              it:"IT/дані"
+            },
+            volSend:"Надіслати",
+            volOk:"Дякуємо! Заявку отримано (демо).",
+            volErr:"Перевірте поля заявки.",
+
+            parTitle:"Партнерство",
+            parDesc:"Органи влади, бізнес і міжнародні організації — співпрацюймо для впровадження європейських норм.",
+            parCta:"Зв’язатися →",
+
+            subTitle:"Підписка",
+            subDesc:"Отримуйте анонси навчальних програм та нові публікації (окремі статті й позиції).",
+            subLabels:{ email:"Email" },
+            subSend:"Підписатись",
+            subOk:"Готово! Ви підписані (демо).",
+            subErr:"Перевірте email."
+          },
+          marquee: "АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE"
+        },
+
+        en: {
+          brand: "Transportation Safety Association of Ukraine",
+          nav: {
+            home:"Home", about:"About", programs:"Programs", join:"Get Involved",
+            support:"Support", pubs:"Publications", contacts:"Contacts"
+          },
+          cta: { join:"Join", support:"Support" },
+
+          page: {
+            h1: "Get Involved",
+            lead: "Choose how to participate: volunteering, partnerships, or newsletter subscription.",
+
+            volTitle: "Volunteering",
+            volDesc: "Support research, analytics, and educational initiatives in public transport.",
+            volLabels: { name:"Your name", email:"Email", area:"Area" },
+            volAreas: {
+              research:"Research & analytics",
+              training:"Training & education",
+              advocacy:"Advocacy",
+              it:"IT/data"
+            },
+            volSend:"Send",
+            volOk:"Thanks! Application received (demo).",
+            volErr:"Please check the fields.",
+
+            parTitle:"Partnerships",
+            parDesc:"Work with us — government, business, and international organizations — to implement EU standards.",
+            parCta:"Contact →",
+
+            subTitle:"Subscribe",
+            subDesc:"Get updates on training announcements and new publications (selected articles and positions).",
+            subLabels:{ email:"Email" },
+            subSend:"Subscribe",
+            subOk:"Great! You’re subscribed (demo).",
+            subErr:"Please check email."
+          },
+          marquee: "TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ - TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE - АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ"
+        }
+      };
+
+      const els = {
+        brand: document.getElementById('brand'),
+        navHome: document.getElementById('nav-home'),
+        navAbout: document.getElementById('nav-about'),
+        navPrograms: document.getElementById('nav-programs'),
+        navJoin: document.getElementById('nav-join'),
+        navSupport: document.getElementById('nav-support'),
+        navPubs: document.getElementById('nav-pubs'),
+        navContacts: document.getElementById('nav-contacts'),
+        btnJoin: document.getElementById('btn-join'),
+        btnSupport: document.getElementById('btn-support'),
+
+        h1: document.getElementById('h1'),
+        lead: document.getElementById('lead'),
+
+        volTitle: document.getElementById('vol-title'),
+        volDesc: document.getElementById('vol-desc'),
+        volNameL: document.getElementById('vol-name-l'),
+        volEmailL: document.getElementById('vol-email-l'),
+        volAreaL: document.getElementById('vol-area-l'),
+        volArea: document.getElementById('vol-area'),
+        volSend: document.getElementById('vol-send'),
+        volMsg: document.getElementById('vol-msg'),
+
+        parTitle: document.getElementById('par-title'),
+        parDesc: document.getElementById('par-desc'),
+        parCta: document.getElementById('par-cta'),
+
+        subTitle: document.getElementById('sub-title'),
+        subDesc: document.getElementById('sub-desc'),
+        subEmailL: document.getElementById('sub-email-l'),
+        subSend: document.getElementById('sub-send'),
+        subMsg: document.getElementById('sub-msg'),
+
+        langUk: document.getElementById('lang-uk'),
+        langEn: document.getElementById('lang-en'),
+        marquee: document.getElementById('marquee-text')
+      };
+
+      function setLang(lang){
+        const t = COPY[lang];
+        if(!t) return;
+
+        // Шапка / меню / CTA
+        els.brand.textContent = t.brand;
+        els.navHome.textContent = t.nav.home;
+        els.navAbout.textContent = t.nav.about;
+        els.navPrograms.textContent = t.nav.programs;
+        els.navJoin.textContent = t.nav.join;
+        els.navSupport.textContent = t.nav.support;
+        els.navPubs.textContent = t.nav.pubs;
+        els.navContacts.textContent = t.nav.contacts;
+        els.btnJoin.textContent = t.cta.join;
+        els.btnSupport.textContent = t.cta.support;
+
+        // Заголовки та описи
+        els.h1.textContent = t.page.h1;
+        els.lead.textContent = t.page.lead;
+
+        // Волонтерство
+        els.volTitle.textContent = t.page.volTitle;
+        els.volDesc.textContent = t.page.volDesc;
+        els.volNameL.textContent = t.page.volLabels.name;
+        els.volEmailL.textContent = t.page.volLabels.email;
+        els.volAreaL.textContent = t.page.volLabels.area;
+
+        const opts = els.volArea.options;
+        opts[0].text = t.page.volAreas.research;
+        opts[1].text = t.page.volAreas.training;
+        opts[2].text = t.page.volAreas.advocacy;
+        opts[3].text = t.page.volAreas.it;
+
+        els.volSend.textContent = t.page.volSend;
+        els.volSend.dataset.ok = t.page.volOk;
+        els.volSend.dataset.err = t.page.volErr;
+
+        // Партнерство
+        els.parTitle.textContent = t.page.parTitle;
+        els.parDesc.textContent = t.page.parDesc;
+        els.parCta.textContent = t.page.parCta;
+
+        // Підписка
+        els.subTitle.textContent = t.page.subTitle;
+        els.subDesc.textContent = t.page.subDesc;
+        els.subEmailL.textContent = t.page.subLabels.email;
+        els.subSend.textContent = t.page.subSend;
+        els.subSend.dataset.ok = t.page.subOk;
+        els.subSend.dataset.err = t.page.subErr;
+
+        // Бігучий рядок
+        els.marquee.textContent = (lang==='uk'?COPY.uk.marquee:COPY.en.marquee);
+
+        // Активний перемикач
+        document.documentElement.lang = (lang === 'uk') ? 'uk' : 'en';
+        if(lang === 'uk'){
+          els.langUk.classList.add('active');
+          els.langEn.classList.remove('active');
+        }else{
+          els.langEn.classList.add('active');
+          els.langUk.classList.remove('active');
+        }
+      }
+
+      // Демонстраційні обробники форм (без бекенду)
+      document.getElementById('vol-form').addEventListener('submit', function(){
+        const name = document.getElementById('vol-name').value.trim();
+        const email = document.getElementById('vol-email').value.trim();
+        const msg = document.getElementById('vol-msg');
+        if(name && email){
+          msg.textContent = document.getElementById('vol-send').dataset.ok || 'OK';
+          msg.className = 'msg ok';
+        }else{
+          msg.textContent = document.getElementById('vol-send').dataset.err || 'Error';
+          msg.className = 'msg err';
+        }
+      });
+
+      document.getElementById('sub-form').addEventListener('submit', function(){
+        const email = document.getElementById('sub-email').value.trim();
+        const msg = document.getElementById('sub-msg');
+        if(email){
+          msg.textContent = document.getElementById('sub-send').dataset.ok || 'OK';
+          msg.className = 'msg ok';
+        }else{
+          msg.textContent = document.getElementById('sub-send').dataset.err || 'Error';
+          msg.className = 'msg err';
+        }
+      });
+
+      // Перемикач мови
+      els.langUk.addEventListener('click', function(){ setLang('uk'); });
+      els.langEn.addEventListener('click', function(){ setLang('en'); });
+
+      setLang('uk'); // мова за замовчуванням
+    })();
+  </script>
+</body>
+</html>
