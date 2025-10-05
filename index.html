@@ -3,122 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Асоціація сприяння безпеці на транспорті України</title>
+  <title data-i18n="title">
+    Асоціація сприяння безпеці на транспорті України
+  </title>
 
-  <!-- Підключення стилів з кореня -->
+  <!-- Головні стилі сайту у корені -->
   <link rel="stylesheet" href="site.css" />
+
+  <!-- Невеликий стиль-патч якщо фон не підтягнеться з site.css -->
   <style>
-    /* Мінімум локальних стилів, щоб геро зображення точно відобразилось */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background: #e9f0f5;
-    }
-    .hero-img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .hero-card {
-      position: relative;
-      max-width: 720px;
-      margin: -80px auto 0 auto;
-      background: rgba(255,255,255,0.95);
-      border-radius: 12px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-      padding: 28px 32px;
-      text-align: center;
-      font-size: clamp(18px, 2.2vw, 22px);
-      line-height: 1.45;
-    }
-    header {
-      background: #27472f; /* темно-зелений бар */
-      color: #fff;
-    }
-    .top {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .brand {
-      font-weight: 800;
-      font-size: clamp(20px, 2.6vw, 34px);
-      letter-spacing: .3px;
-    }
-    nav {
-      margin-left: auto;
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 15px;
-      opacity: .96;
-    }
-    nav a:hover { text-decoration: underline; }
-    .lang {
-      display: flex; gap: 8px; margin-left: 12px;
-    }
-    .lang a {
-      background: #3a5c43;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    footer {
-      background: #27472f;
-      color: #e8eee9;
-      font-size: 13px;
-      text-align: center;
-      padding: 12px 10px;
-      margin-top: 32px;
+    /* кореневий геро-блок очікує, що site.css підставить фон buses.jpg;
+       цей фолбек гарантує відображення, якщо класів нема */
+    .hero.fallback {
+      background: url("buses.jpg") center/cover no-repeat;
     }
   </style>
 </head>
-<body>
+<body class="lang-uk">
+  <!-- Верхня смуга з назвою та меню -->
+  <header class="top">
+    <div class="top-inner">
+      <h1 class="brand" data-i18n="brand">
+        Асоціація сприяння безпеці на транспорті України
+      </h1>
 
-  <header>
-    <div class="top">
-      <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
-
-      <nav>
-        <!-- ШЛЯХИ З ВЕЛИКИХ ЛІТЕР -->
-        <a href="Home/index.html">Головна</a>
-        <a href="About/index.html">Про нас</a>
-        <a href="Programs/index.html">Програми</a>
-        <a href="Publications/index.html">Публікації</a>
-        <a href="Contacts/index.html">Контакти</a>
-
-        <span class="lang">
-          <a href="#" aria-label="Українська">Укр</a>
-          <a href="#" aria-label="English">EN</a>
-        </span>
+      <nav class="nav">
+        <ul>
+          <!-- важливо: шляхи без ../ і з папками з Великої літери -->
+          <li><a href="Home/index.html" data-i18n="nav.home">Головна</a></li>
+          <li><a href="About/index.html" data-i18n="nav.about">Про нас</a></li>
+          <li><a href="Programs/index.html" data-i18n="nav.programs">Програми</a></li>
+          <li><a href="Publications/index.html" data-i18n="nav.publications">Публікації</a></li>
+          <li><a href="Contacts/index.html" data-i18n="nav.contacts">Контакти</a></li>
+        </ul>
       </nav>
+
+      <div class="lang-switch">
+        <button id="btn-uk" type="button" aria-pressed="true">Укр</button>
+        <button id="btn-en" type="button" aria-pressed="false">EN</button>
+      </div>
     </div>
   </header>
 
+  <!-- Герой-блок (фон підтягується з site.css: url(buses.jpg) у корені) -->
   <main>
-    <!-- Головний герой-блок з автобuses.jpg у КОРЕНІ -->
-    <section class="hero" aria-label="Головний банер">
-      <img class="hero-img" src="buses.jpg" alt="Жовті міські автобуси в ряд" />
-    </section>
-
-    <section class="hero-card" aria-label="Місія асоціації">
-      <strong>Впровадження стандартів ЄС</strong><br />
-      задля якості послуг для пасажирів<br />
-      і сталого розвитку громад
+    <section class="hero" id="hero">
+      <!-- якщо з якихось причин клас із site.css не спрацює, JS додасть .fallback -->
+      <div class="hero-card">
+        <h1 data-i18n="hero.h1">Впровадження стандартів ЄС</h1>
+        <p data-i18n="hero.p1">задля якості послуг для пасажирів</p>
+        <p data-i18n="hero.p2">і сталого розвитку громад</p>
+      </div>
     </section>
   </main>
 
-  <footer>
-    ©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+  <!-- Нижня смуга (футер) -->
+  <footer class="bottom-fixed">
+    <div class="bottom-inner">
+      <div class="bottom-bar"></div>
+      <div class="copy" data-i18n="footer">
+        ©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE
+      </div>
+    </div>
   </footer>
 
+  <!-- Вбудована мікро-локалізація: без зовнішніх файлів, працює одразу -->
+  <script>
+    (function () {
+      // якщо стилі не встановили фон геро, підкинемо фолбек-клас
+      const hero = document.getElementById('hero');
+      // малесенька перевірка: якщо обчислений background-image порожній — додаємо fallback
+      requestAnimationFrame(() => {
+        const bg = getComputedStyle(hero).backgroundImage;
+        if (!bg || bg === 'none') hero.classList.add('fallback');
+      });
+
+      // Словник перекладів
+      const dict = {
+        uk: {
+          title: "Асоціація сприяння безпеці на транспорті України",
+          brand: "Асоціація сприяння безпеці на транспорті України",
+          "nav.home": "Головна",
+          "nav.about": "Про нас",
+          "nav.programs": "Програми",
+          "nav.publications": "Публікації",
+          "nav.contacts": "Контакти",
+          "hero.h1": "Впровадження стандартів ЄС",
+          "hero.p1": "задля якості послуг для пасажирів",
+          "hero.p2": "і сталого розвитку громад",
+          footer: "©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE",
+        },
+        en: {
+          title: "Transportation Safety Association of Ukraine",
+          brand: "Transportation Safety Association of Ukraine",
+          "nav.home": "Home",
+          "nav.about": "About",
+          "nav.programs": "Programs",
+          "nav.publications": "Publications",
+          "nav.contacts": "Contacts",
+          "hero.h1": "Implementing EU standards",
+          "hero.p1": "to improve passenger service quality",
+          "hero.p2": "and support sustainable communities",
+          footer: "©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE",
+        },
+      };
+
+      const $all = (sel) => Array.from(document.querySelectorAll(sel));
+      const applyLang = (lang) => {
+        document.body.classList.toggle('lang-uk', lang === 'uk');
+        document.body.classList.toggle('lang-en', lang === 'en');
+        // оновити тексти
+        $all('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          const txt = dict[lang][key];
+          if (typeof txt === 'string') {
+            if (el.tagName === 'TITLE') {
+              document.title = txt;
+            } else {
+              el.textContent = txt;
+            }
+          }
+        });
+        // стан кнопок
+        document.getElementById('btn-uk').setAttribute('aria-pressed', lang === 'uk');
+        document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+        // зберегти вибір
+        try { localStorage.setItem('lang', lang); } catch {}
+      };
+
+      // ініціалізація
+      const saved = (() => { try { return localStorage.getItem('lang'); } catch { return null; } })();
+      applyLang(saved === 'en' ? 'en' : 'uk');
+
+      // обробники
+      document.getElementById('btn-uk').addEventListener('click', () => applyLang('uk'));
+      document.getElementById('btn-en').addEventListener('click', () => applyLang('en'));
+    })();
+  </script>
 </body>
 </html>
