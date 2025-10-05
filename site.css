@@ -1,0 +1,123 @@
+:root{
+  --brand:#0a3d91;       /* неактивно зараз, залишено на майбутнє */
+  --green:#274b36;
+  --sand:#f5deb3;
+  --text:#111827;
+  --page:#dfe8f2;        /* світла сіро-блакитна смуга під фото */
+  --footer:#2d3e35;      /* темна смуга внизу */
+  --card-bg:#ffffffee;   /* напівпрозора картка */
+  --gap: clamp(10px, 2.5vw, 24px);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background:#fff;
+}
+
+/* ШАПКА */
+.top{
+  background:#284b36; /* темно-зелений як на скрині */
+  color:#fff;
+}
+.top .wrap{
+  max-width:1200px;
+  margin:0 auto;
+  padding:12px var(--gap);
+  display:grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--gap);
+  align-items:center;
+}
+.brand{
+  margin:0;
+  font-size: clamp(18px, 2.2vw, 32px);
+  font-weight:800;
+}
+.nav{
+  display:flex;
+  gap:16px;
+}
+.nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  padding:6px 0;
+}
+.nav a:hover{ text-decoration:underline; }
+.lang{ display:flex; gap:10px; }
+.btn{
+  border:0;
+  background:#fff;
+  color:#274b36;
+  padding:6px 12px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+.btn-ghost{
+  background:transparent;
+  color:#fff;
+  border:1px solid #ffffff88;
+}
+
+/* ГЕРО з фоном */
+.hero{
+  min-height: 56vh;
+  background: url("buses.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding: clamp(16px, 4vw, 32px);
+}
+.hero-card{
+  background: var(--card-bg);
+  border-radius: 14px;
+  box-shadow: 0 10px 22px rgba(0,0,0,.15);
+  padding: clamp(16px, 3vw, 28px) clamp(18px, 4vw, 40px);
+  text-align:center;
+  max-width: 680px;
+}
+.hero-card h2{
+  margin:0 0 8px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight:800;
+}
+.hero-card p{
+  margin:0;
+  font-size: clamp(16px, 1.6vw, 18px);
+}
+
+/* світла смуга під фото */
+.page-strip{
+  background: var(--page);
+  height: clamp(48px, 9vw, 90px);
+}
+
+/* ФУТЕР */
+.footer{
+  background: var(--footer);
+  color:#d7e3dc;
+}
+.footer .wrap{
+  max-width:1200px;
+  margin:0 auto;
+  padding: 12px var(--gap);
+  text-align:center;
+  letter-spacing:.2px;
+  font-weight:600;
+}
+.small{ font-size: 14px; }
+
+/* Відповідність для вузьких екранів */
+@media (max-width: 720px){
+  .top .wrap{
+    grid-template-columns: 1fr;
+    gap:8px;
+  }
+  .nav{ flex-wrap:wrap; }
+  .brand{ font-size: 20px; }
+}
