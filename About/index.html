@@ -36,7 +36,7 @@
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== ДЕСKTOP — класична шапка, як було раніше ===== */
+    /* ===== ДЕСКТОП — класична шапка ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -44,7 +44,7 @@
       display:flex;
       align-items:center;
       gap:16px;
-      flex-wrap:wrap;
+      flex-wrap:wrap; /* базово, як було */
     }
     .brand{
       font-weight:700;
@@ -58,6 +58,14 @@
     .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25);}
     .lang-btn.active{ background: rgba(255,255,255,.18);}
+
+    /* ✅ ЄДИНА ПРАВКА ТІЛЬКИ ДЛЯ ПК: фіксуємо розкладку, щоб мови були праворуч */
+    @media (min-width: 901px){
+      header{ flex-wrap:nowrap; }     /* не переносити рядки у шапці */
+      .brand{ flex:0 0 auto; }        /* фіксована ширина бренду */
+      nav{ flex:1 1 auto; }           /* займає середину */
+      .top-actions{ margin-left:auto; } /* мови притискаються вправо */
+    }
 
     main{ flex:1 0 auto; padding:16px; }
     .page{
@@ -75,7 +83,7 @@
     @keyframes scroll{ 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
     footer{ background: var(--page-bg); height: var(--footer-h); width:100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;}
 
-    /* ===== Мобільні — мінімальні правки, шапку НЕ переробляємо під Home ===== */
+    /* ===== Мобільні — без змін шапки ===== */
     @media (max-width: 900px){
       html, body{ background-position:center top; background-size:cover; }
       .page{ margin:56px auto 20px; }
