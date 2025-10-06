@@ -115,9 +115,9 @@
 
       html, body{ background-position:center top; background-size:cover; }
 
-      /* портрет — без змін, як є */
+      /* портрет — без змін */
       .center-text-block{
-        top:45%; /* портретне положення — не змінював */
+        top:58%;
         font-size:clamp(16px, 4.4vw, 20px);
         padding:12px 14px;
         width:min(92vw, 560px);
@@ -130,7 +130,7 @@
       footer{ height:44px; font-size:13px; padding:0 8px; }
     }
 
-    /* ===== Лише мобільна АЛЬБОМНА — піднято блок до центру автобуса ===== */
+    /* ===== ЛИШЕ мобільна АЛЬБОМНА (єдина зміна) ===== */
     @media (max-width: 900px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -142,10 +142,11 @@
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
 
-      /* ✅ ЄДИНА ЗМІНА ДЛЯ АЛЬБОМУ: вище, по центру автобуса */
+      /* BEGIN CHANGE: підняти напівпрозорий блок до центру центрального автобуса */
       .center-text-block{
         top:46%;
       }
+      /* END CHANGE */
     }
   </style>
 </head>
