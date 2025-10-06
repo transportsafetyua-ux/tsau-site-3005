@@ -162,6 +162,29 @@
       .marquee{ font-size:16px; }
     }
   </style>
+<style id="home-nav-align-fix">
+  /* Тільки десктоп: вирівнюємо, щоб було як на інших вкладках */
+  @media (min-width: 901px) {
+    header { display: flex; align-items: center; gap: 16px; }
+    .brand { flex: 0 0 auto; }
+
+    /* Навігація займає центр/ширину, вирівняна вліво */
+    nav { 
+      display: flex; gap: 14px; 
+      justify-content: flex-start; 
+      margin-left: 16px;
+      flex: 1 1 auto;        /* даємо простір навігації */
+    }
+
+    /* Блок мов НЕ “виштовхує” nav вправо */
+    .top-actions { 
+      margin-left: 0 !important;   /* перекриваємо попереднє auto */
+      display: flex; gap: 12px;
+      padding-left: 16px;
+      flex: 0 0 auto;
+    }
+  }
+</style>
 </head>
 
 <body>
