@@ -56,7 +56,7 @@
       font-size:32px;
       color:#fff;
       white-space:nowrap;
-      flex:1 1 auto;
+      flex:0 0 auto;
     }
     nav{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
     nav a{ color:var(--nav-sand); text-decoration:none; font-size:14px; }
@@ -69,6 +69,26 @@
       border:1px solid rgba(255,255,255,.25);
     }
     .lang-btn.active{ background:rgba(255,255,255,.18); }
+
+    /* === ЄДИНА ПРАВКА: ПК-розкладка як на інших вкладках === */
+    @media (min-width: 901px){
+      .nav-row{
+        display:flex;
+        align-items:center;
+        gap:14px;
+        flex:1 1 auto;   /* займає простір між .brand і мовами */
+        min-width:0;
+      }
+      .nav-row nav{
+        display:flex;
+        gap:14px;
+        flex-wrap:wrap;
+        margin-left:10px;
+      }
+      .nav-row .top-actions{
+        margin-left:auto;  /* перемикач мов вправо */
+      }
+    }
 
     .center-text-block{
       position:absolute; left:50%; transform:translateX(-50%);
@@ -130,16 +150,6 @@
       .bottom-inner{ flex-direction:column; }
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
-
-      /* ✅ ЄДИНА ДІЯ: блок лежить на зеленій смузі, нижній край = верхній край смуги */
-      .center-text-block{
-        width:60vw;
-        position:absolute;
-        left:50%;
-        transform:translateX(-50%);
-        top:auto;
-        bottom:calc(var(--ticker-h) - 2px); /* нижній край на рівні верхнього краю зеленої смуги */
-      }
     }
   </style>
 </head>
@@ -151,6 +161,7 @@
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
 
+    <!-- ПК: цей блок тепер вирівняний як на інших сторінках -->
     <div class="nav-row">
       <nav>
         <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
