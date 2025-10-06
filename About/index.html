@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
   <title>Про нас — Асоціація сприяння безпеці на транспорті України</title>
   <style>
     :root{
@@ -29,6 +29,7 @@
       display:flex;
       flex-direction:column;
       padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
+      overflow-x:hidden;
     }
 
     /* двомовність */
@@ -36,7 +37,7 @@
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== ДЕСКТОП — класична шапка ===== */
+    /* ===== ДЕСКТОП — БЕЗ ЗМІН ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -44,7 +45,7 @@
       display:flex;
       align-items:center;
       gap:16px;
-      flex-wrap:wrap; /* базово, як було */
+      flex-wrap:wrap;
     }
     .brand{
       font-weight:700;
@@ -58,14 +59,6 @@
     .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25);}
     .lang-btn.active{ background: rgba(255,255,255,.18);}
-
-    /* ✅ ЄДИНА ПРАВКА ТІЛЬКИ ДЛЯ ПК: фіксуємо розкладку, щоб мови були праворуч */
-    @media (min-width: 901px){
-      header{ flex-wrap:nowrap; }     /* не переносити рядки у шапці */
-      .brand{ flex:0 0 auto; }        /* фіксована ширина бренду */
-      nav{ flex:1 1 auto; }           /* займає середину */
-      .top-actions{ margin-left:auto; } /* мови притискаються вправо */
-    }
 
     main{ flex:1 0 auto; padding:16px; }
     .page{
@@ -83,13 +76,65 @@
     @keyframes scroll{ 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
     footer{ background: var(--page-bg); height: var(--footer-h); width:100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;}
 
-    /* ===== Мобільні — без змін шапки ===== */
+    /* ===== МОБІЛЬНІ ВЕРСІЇ — ШАПКА ЯК НА “ГОЛОВНА” + центральний напівпрозорий блок ===== */
+    /* Базово ховаємо оверлей на ПК */
+    .center-text-block{ display:none; }
+
     @media (max-width: 900px){
+      /* фон, як на Home, щоб не було “подвійного автобуса” */
       html, body{ background-position:center top; background-size:cover; }
-      .page{ margin:56px auto 20px; }
-      .marquee{ font-size:15px; }
+
+      /* ШАПКА як на Home */
+      header{ padding:12px 14px; gap:10px; align-items:flex-start; flex-wrap:nowrap; flex-direction:column; }
+      .brand{
+        white-space:normal; text-align:center; width:100%;
+        line-height:1.2; font-size:clamp(20px, 6vw, 28px);
+        max-width:26ch; margin:0 auto;
+      }
+      .nav-row{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+      nav{ flex:1 1 auto; flex-wrap:nowrap; gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+      nav::-webkit-scrollbar{ height:0 }
+      nav a{ font-size:clamp(14px, 3.4vw, 16px); white-space:nowrap; }
+      .top-actions{ flex:0 0 auto; gap:6px; }
+      .lang-btn{ padding:4px 8px; font-size:clamp(12px, 3.2vw, 14px); }
+
+      /* Центральний напівпрозорий блок — ПО ЦЕНТРУ центрального автобуса */
+      .center-text-block{
+        display:block;
+        position:absolute;
+        left:50%; transform:translateX(-50%);
+        top:58%;
+        width:min(92vw, 560px);
+        padding:12px 16px;
+        background:rgba(255,255,255,0.60);
+        border-radius:12px;
+        text-align:center;
+        color:var(--brand);
+        font-weight:700;
+        font-size:clamp(16px, 4.2vw, 20px);
+        line-height:1.35;
+        backdrop-filter: blur(1px);
+        z-index:1;
+      }
+
+      /* Низ — як на Home */
+      .bottom-fixed{ bottom:0; }
+      .bottom-inner{ gap:0; }
       .bottom-bar{ height:48px; }
+      .marquee{ font-size:15px; }
       footer{ height:44px; font-size:13px; padding:0 8px; }
+    }
+
+    /* Альбомна мобільна — шапка як на Home, блок трохи вище і трохи ширший */
+    @media (max-width: 900px) and (orientation:landscape){
+      .brand{ white-space:nowrap; max-width:none; font-size:clamp(18px, 3.2vw, 26px); }
+      .center-text-block{
+        top:54%;
+        width:60vw;
+        font-size:clamp(14px, 2.6vw, 18px);
+      }
+      .bottom-bar{ height:46px; }
+      footer{ height:42px; }
     }
   </style>
 </head>
@@ -99,18 +144,28 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
-    <nav>
-      <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
-      <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
-      <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
-      <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
-      <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
-    </nav>
-    <div class="top-actions">
-      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
-      <a href="#" class="lang-btn" id="btn-en">EN</a>
+
+    <!-- рядок вкладок + перемикач мов (мобільна шапка як на “Головна”) -->
+    <div class="nav-row">
+      <nav>
+        <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
+        <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
+        <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
+        <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
+        <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
+      </nav>
+      <div class="top-actions">
+        <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+        <a href="#" class="lang-btn" id="btn-en">EN</a>
+      </div>
     </div>
   </header>
+
+  <!-- Напівпрозорий блок — ТІЛЬКИ ДЛЯ МОБІЛЬНИХ -->
+  <div class="center-text-block">
+    <span class="t uk">Про нас</span>
+    <span class="t en">About</span>
+  </div>
 
   <main>
     <section class="page">
@@ -133,14 +188,15 @@
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
-          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ</span>
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
+          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
   </div>
 
+  <!-- Перемикач мов — як на Home -->
   <script>
     (function(){
       const KEY='tsau_lang';
