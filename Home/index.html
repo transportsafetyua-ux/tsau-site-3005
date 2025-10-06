@@ -36,12 +36,10 @@
       overflow-x:hidden;
     }
 
-    /* двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (НЕ чіпаємо) ===== */
     header{
       background:var(--brand);
       color:#fff;
@@ -98,7 +96,6 @@
       font-size:14px; color:#222; white-space:nowrap;
     }
 
-    /* ===== MOBILE (портрет і ландшафт; ПК не змінюємо) ===== */
     @media (max-width: 900px){
       header{ padding:12px 14px; gap:10px; align-items:flex-start; }
       .brand{
@@ -123,7 +120,6 @@
       footer{ height:44px; font-size:13px; padding:0 8px; }
     }
 
-    /* ===== ТІЛЬКИ мобільний ЛАНДШАФТ ===== */
     @media (max-width: 900px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -134,12 +130,16 @@
       .bottom-inner{ flex-direction:column; }
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
-    }
 
-    /* ===== ТІЛЬКИ мобільний ПОРТРЕТ — ЄДИНА ДІЯ ===== */
-    @media (max-width: 900px) and (orientation:portrait){
-      /* верхній край «скляного» блоку піднято до рівня дзеркал першого автобуса */
-      .center-text-block{ top:46%; }
+      /* ✅ ЄДИНА ДІЯ: блок лежить на зеленій смузі, нижній край = верхній край смуги */
+      .center-text-block{
+        width:60vw;
+        position:absolute;
+        left:50%;
+        transform:translateX(-50%);
+        top:auto;
+        bottom:calc(var(--ticker-h) - 2px); /* нижній край на рівні верхнього краю зеленої смуги */
+      }
     }
   </style>
 </head>
@@ -183,7 +183,7 @@
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAЇNE – </span>
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
           <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
