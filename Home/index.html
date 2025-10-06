@@ -131,10 +131,14 @@
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
 
-      /* ✅ ЄДИНА ДІЯ: блок піднято вгору на половину його висоти */
+      /* ✅ ЄДИНА ДІЯ: блок лежить на зеленій смузі, нижній край = верхній край смуги */
       .center-text-block{
         width:60vw;
-        top:calc(50% - 50%);
+        position:absolute;
+        left:50%;
+        transform:translateX(-50%);
+        top:auto;
+        bottom:calc(var(--ticker-h) - 2px); /* нижній край на рівні верхнього краю зеленої смуги */
       }
     }
   </style>
