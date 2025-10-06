@@ -98,7 +98,7 @@
       font-size:14px; color:#222; white-space:nowrap;
     }
 
-    /* ===== MOBILE (портрет і ландшафт; ПК не змінюємо) ===== */
+    /* ===== MOBILE ONLY (ПК не змінюємо) ===== */
     @media (max-width: 900px){
       header{ padding:12px 14px; gap:10px; align-items:flex-start; }
       .brand{
@@ -114,7 +114,14 @@
       .lang-btn{ padding:4px 8px; font-size:clamp(12px, 3.2vw, 14px); }
 
       html, body{ background-position:center top; background-size:cover; }
-      .center-text-block{ top:58%; font-size:clamp(16px, 4.4vw, 20px); padding:12px 14px; width:min(92vw, 560px); }
+
+      /* портрет */
+      .center-text-block{
+        top:58%;
+        font-size:clamp(16px, 4.4vw, 20px);
+        padding:12px 14px;
+        width:min(92vw, 560px);
+      }
 
       .bottom-fixed{ bottom:0; }
       .bottom-inner{ gap:0; }
@@ -123,7 +130,7 @@
       footer{ height:44px; font-size:13px; padding:0 8px; }
     }
 
-    /* ===== ТІЛЬКИ мобільний ЛАНДШАФТ (піднято блок) ===== */
+    /* ===== мобільна АЛЬБОМНА (поточні стилі) ===== */
     @media (max-width: 900px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -135,12 +142,20 @@
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
 
-      /* ✅ Піднятий блок — як у "Про нас" */
       .center-text-block{
-        top:53%;                    /* висота блоку як у "Про нас" */
-        transform:translateX(-50%); /* лише горизонтальне центрування */
+        top:44%;
       }
     }
+
+    /* ===== BEGIN CHANGE (підсилююче правило) =====
+       Гарантовано піднімає блок у мобільній АЛЬБОМНІЙ версії.
+       НІЧОГО ІНШОГО НЕ ЗМІНЮЄ.  */
+    @media (max-width: 900px) and (orientation:landscape){
+      .center-text-block{
+        top: 38% !important; /* піднято приблизно на піввисоти блоку до центру автобуса */
+      }
+    }
+    /* ===== END CHANGE ===== */
   </style>
 </head>
 
