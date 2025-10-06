@@ -17,7 +17,6 @@
       --nav-sand:#f5deb3;
     }
 
-    /* ==== БАЗА (ПК — НЕ ЧІПАЄМО) ==== */
     *{ box-sizing:border-box; margin:0; padding:0; }
 
     html, body{
@@ -26,21 +25,21 @@
       font-family: Arial, Helvetica, sans-serif;
       color:var(--text);
       background-color:var(--page-bg);
-
-      /* Фон з автобусами (ПК макет) */
+      /* ПК: фон-ілюстрація на тілі сторінки (не чіпаємо) */
       background-image:url('buses.jpg');
       background-repeat:no-repeat;
       background-position:center top;
       background-size:contain;
-
       display:flex;
       flex-direction:column;
       align-items:center;
-
-      /* резерв під нижні смуги */
       overflow-x:hidden;
-      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
+
+    /* Перемикання мов (двомовний контент через .t.uk / .t.en) */
+    .t.en{ display:none; }
+    .lang-en .t.uk{ display:none; }
+    .lang-en .t.en{ display:inline; }
 
     header{
       background:var(--brand);
@@ -48,68 +47,75 @@
       width:100%;
       padding:12px 18px;
       display:flex;
-      flex-wrap:wrap;
       align-items:center;
-      justify-content:space-between;
-      z-index:10;              /* поверх “скла” */
+      gap:16px;
       position:relative;
+      z-index:5; /* поверх “скла” на мобільних */
     }
 
     .brand{
       font-weight:700;
-      font-size:2vw;           /* як у твоїй робочій версії */
+      font-size:32px;   /* ПК */
       color:#fff;
+      white-space:nowrap;
       flex:1 1 auto;
     }
 
     nav{
       display:flex;
+      gap:14px;
       flex-wrap:wrap;
-      gap:10px;
-      justify-content:center;
     }
     nav a{
       color:var(--nav-sand);
       text-decoration:none;
-      font-size:1vw;
+      font-size:14px;
     }
     nav a:hover{ text-decoration:underline; }
 
-    .top-actions{ display:flex; gap:8px; }
+    .lang{
+      display:flex;
+      gap:10px;
+      margin-left:auto;
+    }
     .lang-btn{
-      color:#fff; text-decoration:none; font-weight:700;
-      padding:4px 10px; border-radius:6px;
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:6px 10px;
+      border-radius:8px;
       border:1px solid rgba(255,255,255,.25);
       background:transparent;
     }
     .lang-btn.active{ background:rgba(255,255,255,.18); }
 
     /* Напівпрозорий центральний блок */
-    .center-text-block{
+    .overlay{
       position:absolute;
       left:50%;
       transform:translateX(-50%);
       top:60%;
       background:rgba(255,255,255,0.6);
-      padding:1vw 2vw;
-      border-radius:8px;
+      padding:16px 24px;
+      border-radius:12px;
       text-align:center;
-      font-size:clamp(14px,2vw,22px);
       font-weight:700;
       line-height:1.4;
       color:var(--brand);
       backdrop-filter:blur(1px);
       max-width:90%;
-      z-index:2;               /* нижче за header, вище за фон */
+      z-index:2;
     }
+    .overlay h2{ font-size:36px; }
+    .overlay p { font-size:20px; }
 
-    /* Нижні смуги (бігучка + копірайт) */
+    /* Нижні смуги (бігуча + футер) */
     .bottom-fixed{
       position:fixed;
-      left:0; right:0;
+      left:0;
       bottom:var(--safe-gap);
       width:100%;
-      z-index:5;
+      z-index:3;
     }
     .bottom-inner{
       width:100%;
@@ -119,22 +125,20 @@
     }
     .bottom-bar{
       background:var(--brand);
-      height: var(--ticker-h);
+      height:var(--ticker-h);
       display:flex;
       align-items:center;
       justify-content:center;
       overflow:hidden;
-      width:100%;
     }
     .marquee{
       display:inline-block;
       white-space:nowrap;
-      animation: scroll 25s linear infinite;
+      animation:scroll 25s linear infinite;
       color:#fff;
-      font-size:1vw;
+      font-size:18px;
       font-weight:700;
       padding:0 12px;
-      will-change: transform;
     }
     @keyframes scroll{
       0%{ transform:translateX(100%); }
@@ -142,120 +146,168 @@
     }
     footer{
       background:var(--page-bg);
-      height: var(--footer-h);
+      height:var(--footer-h);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:0.9vw;
+      font-size:14px;
       color:#222;
-      width:100%;
-      white-space:nowrap;  /* НЕ переносити копірайт */
+      white-space:nowrap; /* не переносити ©2018 ... в мобільній теж */
     }
 
-    /* ==== ЛИШЕ МОБІЛЬНА АДАПТАЦІЯ (ПОРТРЕТ і ЛАНДШАФТ) ==== */
+    /* --------------------- МОБІЛЬНІ ПРАВКИ --------------------- */
     @media (max-width: 900px){
-
-      /* сторінка без горизонтального скролу, повна ширина */
-      html, body{
-        width:100%;
-        height:auto;
-        overflow-x:hidden;
-        background-size:cover;         /* автобуси на всю ширину */
-        background-position:center top;
-        padding-bottom: calc(50px + 0px + 44px + var(--safe-gap)); /* підправляємо запас */
+      /* прибираємо фон із body, щоб не було «подвійного автобуса» */
+      body{
+        background-image:none;
       }
 
-      /* шапка — від краю до краю, усе в стовпчик і по центру */
+      /* окремий блок з автобусами — рівно від краю до краю */
+      .hero-mobile{
+        width:100%;
+        height:52vw;            /* пропорційна висота; на iPhone ~ 9:16 виглядає як треба */
+        min-height:220px;
+        background:url('buses.jpg') center/cover no-repeat;
+      }
+
+      /* шапка: назва + вкладки + мови в один стовпчик, але без «з’їзду» */
       header{
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        padding:12px 10px;
+        flex-wrap:wrap;
+        row-gap:10px;
+        padding:12px 14px;
       }
       .brand{
-        font-size:20px;
-        line-height:1.2;
-        margin-bottom:8px;
         width:100%;
+        font-size:22px;
+        line-height:1.25;
+      }
+      .topline{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
       }
       nav{
-        width:100%;
-        justify-content:center;
-        gap:8px;
-        flex-wrap:wrap;
-        margin-bottom:6px;
-      }
-      nav a{
-        font-size:16px;
-      }
-      .top-actions{
-        width:100%;
-        justify-content:center;
         gap:10px;
+        flex:1 1 auto;
+        flex-wrap:nowrap;            /* один ряд */
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
       }
-      .lang-btn{ padding:6px 12px; }
+      nav::-webkit-scrollbar{ height:0; }
+      nav a{ font-size:15px; white-space:nowrap; }
 
-      /* «Скло» по центру між автобусами і бігучкою */
-      .center-text-block{
-        top:65%;
-        width:92%;
-        padding:12px 14px;
-        font-size:18px;          /* clamp вже є, але на мобілі задаємо читабельно */
-        line-height:1.35;
-        left:50%; transform:translate(-50%, -50%);
+      .lang{
+        gap:8px;
+        flex:0 0 auto;
+      }
+      .lang-btn{
+        padding:4px 8px;
+        border-radius:8px;
+        font-size:14px;
       }
 
-      /* Бігуча стрічка та футер — повна ширина, трохи нижчі шрифти */
-      .bottom-bar{ height:50px; }
-      .marquee{ font-size:16px; }
-      footer{ font-size:14px; }
+      /* «Скло» — пропорційне та завжди між автобусами і бігучою строкою */
+      .overlay{
+        top:auto;
+        bottom: calc(var(--ticker-h) + var(--footer-h) + 24px);
+        width:min(92vw, 560px);
+        padding:14px 16px;
+      }
+      .overlay h2{ font-size: clamp(18px, 5.2vw, 24px); }
+      .overlay p { font-size: clamp(15px, 4.6vw, 20px); }
 
-      /* дрібні фікси, щоб ніщо не перекривало кліки */
-      header{ z-index: 20; }
-      .center-text-block{ z-index: 10; }
-      .bottom-fixed{ z-index: 15; }
+      /* запобігаємо перекриванню кліків склом */
+      header, nav, .lang{ position:relative; z-index:5; }
+      .overlay{ z-index:2; }
+
+      /* бігучий рядок трохи нижчий у книжному */
+      .bottom-bar{ height: 52px; }
+    }
+
+    /* Горизонтальна орієнтація: зменшуємо кнопки мов і тримаємо в одному рядку з вкладками */
+    @media (max-height: 500px) and (orientation: landscape){
+      .brand{ font-size:18px; }
+      nav a{ font-size:14px; }
+      .lang-btn{ padding:3px 8px; font-size:13px; }
+      .overlay{ bottom: calc(var(--ticker-h) + var(--footer-h) + 16px); }
+      .hero-mobile{ height: 58vh; }
     }
   </style>
 </head>
 
 <body>
-  <!-- ШАПКА -->
   <header>
-    <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
+    <div class="brand">
+      <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
+      <span class="t en">Transportation Safety Association of Ukraine</span>
+    </div>
 
-    <nav>
-      <a href="../Home/index.html">Головна</a>
-      <a href="../About/index.html">Про нас</a>
-      <a href="../Programs/index.html">Програми</a>
-      <a href="../Publications/index.html">Публікації</a>
-      <a href="../Contacts/index.html">Контакти</a>
-    </nav>
+    <!-- Для мобільних: вкладки + мови в одному рядку -->
+    <div class="topline">
+      <nav>
+        <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
+        <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
+        <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
+        <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
+        <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
+      </nav>
 
-    <div class="top-actions">
-      <a href="#" class="lang-btn active">Укр</a>
-      <a href="#" class="lang-btn">EN</a>
+      <div class="lang">
+        <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+        <a href="#" class="lang-btn" id="btn-en">EN</a>
+      </div>
     </div>
   </header>
 
-  <!-- Напівпрозорий блок -->
-  <div class="center-text-block">
-    Впровадження стандартів ЄС<br>
-    задля якості послуг для пасажирів<br>
-    і сталого розвитку громад
+  <!-- Лише на мобільних показується, на ПК прихований через фон body -->
+  <div class="hero-mobile" aria-hidden="true"></div>
+
+  <!-- Напівпрозорий блок між фото і бігучою строкою -->
+  <div class="overlay">
+    <h2>
+      <span class="t uk">Впровадження стандартів ЄС</span>
+      <span class="t en">Implementing EU Standards</span>
+    </h2>
+    <p class="t uk">задля якості послуг для пасажирів<br>і сталого розвитку громад</p>
+    <p class="t en">to ensure quality services for passengers<br>and sustainable community development</p>
   </div>
 
-  <!-- НИЖНІ СМУГИ -->
+  <!-- Нижні смуги -->
   <div class="bottom-fixed">
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
-          АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
+          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ</span>
         </div>
       </div>
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
   </div>
+
+  <!-- Перемикач мов (збереження в localStorage) -->
+  <script>
+    (function(){
+      const LANG_KEY = 'tsau_lang';
+      const body = document.body;
+      const ukBtn = document.getElementById('btn-uk');
+      const enBtn = document.getElementById('btn-en');
+
+      function applyLang(lang){
+        body.classList.toggle('lang-en', lang === 'en');
+        localStorage.setItem(LANG_KEY, lang);
+        ukBtn.classList.toggle('active', lang === 'uk');
+        enBtn.classList.toggle('active', lang === 'en');
+      }
+
+      const saved = localStorage.getItem(LANG_KEY) || 'uk';
+      applyLang(saved);
+
+      ukBtn.addEventListener('click', e => { e.preventDefault(); applyLang('uk'); });
+      enBtn.addEventListener('click', e => { e.preventDefault(); applyLang('en'); });
+    })();
+  </script>
 </body>
 </html>
