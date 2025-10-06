@@ -22,7 +22,6 @@
     html, body{
       width:100%;
       height:100%;
-      margin:0;
       font-family: Arial, Helvetica, sans-serif;
       color:var(--text);
       background-color:var(--page-bg);
@@ -35,9 +34,9 @@
       justify-content:flex-start;
       align-items:center;
       overflow-x:hidden;
-      transform-origin:top left;
     }
 
+    /* ===== DESKTOP (базові стилі, НЕ чіпаємо) ===== */
     header{
       background:var(--brand);
       color:#fff;
@@ -47,17 +46,15 @@
       flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
+      gap:14px;
     }
-
     .brand{
       font-weight:700;
-      font-size:2vw;
-      min-font-size:18px;
+      font-size:32px;
       color:#fff;
+      white-space:nowrap;
       flex:1 1 auto;
-      text-align:center;
     }
-
     nav{
       display:flex;
       flex-wrap:wrap;
@@ -67,11 +64,14 @@
     nav a{
       color:var(--nav-sand);
       text-decoration:none;
-      font-size:1vw;
-      min-font-size:12px;
+      font-size:14px;
     }
     nav a:hover{ text-decoration:underline; }
 
+    .top-actions{
+      display:flex;
+      gap:8px;
+    }
     .lang-btn{
       color:#fff;
       text-decoration:none;
@@ -88,15 +88,16 @@
       transform:translateX(-50%);
       top:60%;
       background:rgba(255,255,255,0.6);
-      padding:1vw 2vw;
+      padding:16px 24px;
       border-radius:8px;
       text-align:center;
-      font-size:clamp(14px,2vw,22px);
+      font-size:22px;
       font-weight:700;
-      line-height:1.4;
+      line-height:1.45;
       color:var(--brand);
       backdrop-filter:blur(1px);
       max-width:90%;
+      z-index:1;
     }
 
     .bottom-fixed{
@@ -104,16 +105,14 @@
       left:0;
       bottom:var(--safe-gap);
       width:100%;
-      z-index:10;
+      z-index:2;
     }
-
     .bottom-inner{
       width:100%;
       display:flex;
       flex-direction:column;
       gap:var(--between);
     }
-
     .bottom-bar{
       background:var(--brand);
       height:var(--ticker-h);
@@ -122,94 +121,141 @@
       justify-content:center;
       overflow:hidden;
     }
-
     .marquee{
       display:inline-block;
       white-space:nowrap;
       animation:scroll 25s linear infinite;
       color:#fff;
-      font-size:1vw;
-      min-font-size:14px;
+      font-size:18px;
       font-weight:700;
+      padding:0 12px;
     }
-
     @keyframes scroll{
       0%{ transform:translateX(100%); }
       100%{ transform:translateX(-100%); }
     }
-
     footer{
       background:var(--page-bg);
       height:var(--footer-h);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:0.9vw;
-      min-font-size:12px;
+      font-size:14px;
       color:#222;
+      white-space:nowrap;            /* без переносу */
     }
 
-    /* --- Мобільна адаптація --- */
-    @media (max-width:900px){
-      html,body{ transform:scale(1); width:100%; height:auto; background-size:cover; }
-      header{ flex-direction:column; align-items:center; padding:10px; }
-      .brand{ font-size:20px; line-height:1.2; white-space:normal; }
-      nav a{ font-size:14px; }
-      .lang-switch{ display:flex; gap:8px; margin-top:6px; }
-      .center-text-block{ top:58%; font-size:18px; padding:10px; width:92%; }
-      .marquee{ font-size:16px; }
-      footer{ position:fixed; bottom:0; width:100%; background:#dfe8f2; }
-    }
+    /* ===== MOBILE ONLY (ПК не змінюємо) ===== */
+    @media (max-width: 900px){
 
-    /* --- Горизонтальний режим --- */
-    @media (max-height:500px){
-      header{ flex-direction:row; align-items:center; justify-content:space-between; }
-      .brand{ font-size:16px; white-space:nowrap; }
-      .lang-switch{ margin:0; }
+      /* ШАПКА: назва у 2 рядки, вкладки + мови в один рівень */
+      header{
+        padding:12px 14px;
+        gap:10px;
+        align-items:flex-start;
+      }
+      .brand{
+        white-space:normal;          /* дозволяємо перенос */
+        text-align:center;
+        width:100%;
+        line-height:1.2;
+        font-size:clamp(20px, 6vw, 28px);
+        max-width:26ch;              /* вийде на 2 рядки */
+        margin:0 auto;
+      }
+      .nav-row{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+      nav{
+        flex:1 1 auto;
+        flex-wrap:nowrap;
+        gap:12px;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+      }
+      nav::-webkit-scrollbar{ height:0; }
+      nav a{ font-size:clamp(14px, 3.4vw, 16px); white-space:nowrap; }
+
+      .top-actions{
+        flex:0 0 auto;
+        gap:6px;
+      }
+      .lang-btn{
+        padding:4px 8px;
+        font-size:clamp(12px, 3.2vw, 14px);
+      }
+
+      /* ФОТО автобусів — суворо одна смуга, без дубля */
+      html, body{
+        background-position:center top;
+        background-size:cover;       /* щоб заповнити ширину природно */
+      }
+
+      /* Скляний блок — читабельний і не перекриває меню */
+      .center-text-block{
+        top:58%;
+        font-size:clamp(16px, 4.4vw, 20px);
+        padding:12px 14px;
+        width:min(92vw, 560px);
+      }
+
+      /* НИЗ СТОРІНКИ: бігучий рядок над ©, а © притиснуто до самого низу */
+      .bottom-fixed{
+        bottom:0;                    /* ігноруємо safe-area всередині футера */
+      }
+      .bottom-inner{
+        gap:0;
+      }
+      .bottom-bar{ height:48px; }
+      .marquee{ font-size:15px; }
+
+      footer{
+        height:44px;
+        font-size:13px;
+        padding:0 8px;
+        white-space:nowrap;          /* весь рядок в одну лінію */
+      }
     }
   </style>
-
-  <script>
-    function switchLang(lang){
-      const textUk = "Впровадження стандартів ЄС<br>задля якості послуг для пасажирів<br>і сталого розвитку громад";
-      const textEn = "Implementation of EU standards<br>for quality passenger services<br>and sustainable community development";
-      const titleUk = "Асоціація сприяння безпеці на транспорті України";
-      const titleEn = "Transportation Safety Association of Ukraine";
-
-      document.querySelector('.center-text-block').innerHTML = lang === 'en' ? textEn : textUk;
-      document.querySelector('.brand').innerText = lang === 'en' ? titleEn : titleUk;
-      document.documentElement.lang = lang === 'en' ? 'en' : 'uk';
-    }
-  </script>
-
 </head>
 
 <body>
   <header>
     <div class="brand">Асоціація сприяння безпеці на транспорті України</div>
-    <nav>
-      <a href="../Home/index.html">Головна</a>
-      <a href="../About/index.html">Про нас</a>
-      <a href="../Programs/index.html">Програми</a>
-      <a href="../Publications/index.html">Публікації</a>
-      <a href="../Contacts/index.html">Контакти</a>
-    </nav>
-    <div class="lang-switch">
-      <a href="#" class="lang-btn active" onclick="switchLang('uk')">Укр</a>
-      <a href="#" class="lang-btn" onclick="switchLang('en')">EN</a>
+
+    <!-- Рядок із вкладками та перемикачем мов (на мобільному в один рівень) -->
+    <div class="nav-row">
+      <nav>
+        <a href="../Home/index.html">Головна</a>
+        <a href="../About/index.html">Про нас</a>
+        <a href="../Programs/index.html">Програми</a>
+        <a href="../Publications/index.html">Публікації</a>
+        <a href="../Contacts/index.html">Контакти</a>
+      </nav>
+      <div class="top-actions">
+        <a href="#" class="lang-btn active">Укр</a>
+        <a href="#" class="lang-btn">EN</a>
+      </div>
     </div>
   </header>
 
+  <!-- Напівпрозорий блок по центру фото -->
   <div class="center-text-block">
     Впровадження стандартів ЄС<br>
     задля якості послуг для пасажирів<br>
     і сталого розвитку громад
   </div>
 
+  <!-- Нижні смуги: Спершу маркіз, в самому низу — © -->
   <div class="bottom-fixed">
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
+          АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
           АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE –
         </div>
       </div>
