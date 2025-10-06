@@ -115,7 +115,7 @@
 
       html, body{ background-position:center top; background-size:cover; }
 
-      /* портрет — без змін */
+      /* портрет */
       .center-text-block{
         top:58%;
         font-size:clamp(16px, 4.4vw, 20px);
@@ -130,7 +130,7 @@
       footer{ height:44px; font-size:13px; padding:0 8px; }
     }
 
-    /* ===== ЛИШЕ мобільна АЛЬБОМНА — ЄДИНА ЗМІНА ===== */
+    /* ===== мобільна АЛЬБОМНА (поточні стилі) ===== */
     @media (max-width: 900px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -142,12 +142,20 @@
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
 
-      /* BEGIN CHANGE: підняти напівпрозорий блок до центру автобуса (прибл. на піввисоти блоку) */
       .center-text-block{
-        top:38%;
+        top:44%;
       }
-      /* END CHANGE */
     }
+
+    /* ===== BEGIN CHANGE (підсилююче правило) =====
+       Гарантовано піднімає блок у мобільній АЛЬБОМНІЙ версії.
+       НІЧОГО ІНШОГО НЕ ЗМІНЮЄ.  */
+    @media (max-width: 900px) and (orientation:landscape){
+      .center-text-block{
+        top: 38% !important; /* піднято приблизно на піввисоти блоку до центру автобуса */
+      }
+    }
+    /* ===== END CHANGE ===== */
   </style>
 </head>
 
@@ -158,7 +166,6 @@
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
 
-    <!-- Рядок із вкладками та перемикачем мов (на мобільному в один рівень) -->
     <div class="nav-row">
       <nav>
         <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
@@ -174,7 +181,6 @@
     </div>
   </header>
 
-  <!-- Напівпрозорий блок по центру фото -->
   <div class="center-text-block">
     <span class="t uk">
       Впровадження стандартів ЄС<br>
@@ -188,7 +194,6 @@
     </span>
   </div>
 
-  <!-- Нижні смуги: Спершу маркіз, в самому низу — © -->
   <div class="bottom-fixed">
     <div class="bottom-inner">
       <div class="bottom-bar">
