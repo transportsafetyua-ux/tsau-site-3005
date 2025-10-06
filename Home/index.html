@@ -127,15 +127,21 @@
     @media (max-width: 900px) and (orientation:landscape){
       /* Назва — в ОДИН рядок */
       .brand{
-        white-space:nowrap;           /* не переносити */
-        max-width:none;               /* знімаємо обмеження 26ch */
+        white-space:nowrap;
+        max-width:none;
         font-size:clamp(18px, 3.2vw, 26px);
       }
       /* Низ: © в самому низу, вище — зелена смуга з бігучою строкою */
-      .bottom-fixed{ bottom:0; }      /* притискаємо блок низу до краю екрана */
-      .bottom-inner{ flex-direction:column; }  /* порядок уже правильний: спершу ticker, потім © */
+      .bottom-fixed{ bottom:0; }
+      .bottom-inner{ flex-direction:column; }
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
+
+      /* ✅ ЄДИНА ДОПРАВКА: «скло» — ширина як центральний автобус і вище до середини скла */
+      .center-text-block{
+        width:60vw;    /* ~ширина центрального автобуса */
+        top:50%;       /* середина скла центрального автобуса */
+      }
     }
   </style>
 </head>
