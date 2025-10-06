@@ -36,12 +36,10 @@
       overflow-x:hidden;
     }
 
-    /* двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (НЕ чіпаємо) ===== */
     header{
       background:var(--brand);
       color:#fff;
@@ -98,7 +96,6 @@
       font-size:14px; color:#222; white-space:nowrap;
     }
 
-    /* ===== MOBILE (портрет і ландшафт; ПК не змінюємо) ===== */
     @media (max-width: 900px){
       header{ padding:12px 14px; gap:10px; align-items:flex-start; }
       .brand{
@@ -123,24 +120,21 @@
       footer{ height:44px; font-size:13px; padding:0 8px; }
     }
 
-    /* ===== ТІЛЬКИ мобільний ЛАНДШАФТ (ВАША ВИМОГА) ===== */
     @media (max-width: 900px) and (orientation:landscape){
-      /* Назва — в ОДИН рядок */
       .brand{
         white-space:nowrap;
         max-width:none;
         font-size:clamp(18px, 3.2vw, 26px);
       }
-      /* Низ: © в самому низу, вище — зелена смуга з бігучою строкою */
       .bottom-fixed{ bottom:0; }
       .bottom-inner{ flex-direction:column; }
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
 
-      /* ✅ ЄДИНА ДОПРАВКА: «скло» — ширина як центральний автобус і вище до середини скла */
+      /* ✅ ЄДИНА ДІЯ: блок піднято вгору на половину його висоти */
       .center-text-block{
-        width:60vw;    /* ~ширина центрального автобуса */
-        top:50%;       /* середина скла центрального автобуса */
+        width:60vw;
+        top:calc(50% - 50%);
       }
     }
   </style>
@@ -183,14 +177,12 @@
 
   <div class="bottom-fixed">
     <div class="bottom-inner">
-      <!-- ЗЕЛЕНА СМУГА З БІГУЧОЮ СТРОКОЮ (ВИЩЕ) -->
       <div class="bottom-bar">
         <div class="marquee">
           <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
           <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
-      <!-- ©2018 — САМ НИЗ -->
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
   </div>
