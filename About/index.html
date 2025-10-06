@@ -70,7 +70,9 @@
     @keyframes scroll{ 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
     footer{ background: var(--page-bg); height: var(--footer-h); width:100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;}
 
-    /* ===== ТІЛЬКИ МОБІЛЬНІ — шапка як на “Головна”; без додаткових оверлеїв ===== */
+    /* ===== ТІЛЬКИ МОБІЛЬНІ — шапка як на “Головна”; оверлей з мінімальними відступами ===== */
+    .center-text-block{ display:none; } /* приховано на ПК */
+
     @media (max-width: 900px){
       /* фон як на Home */
       html, body{ background-position:center top; background-size:cover; }
@@ -89,7 +91,27 @@
       .top-actions{ flex:0 0 auto; gap:6px; }
       .lang-btn{ padding:4px 8px; font-size:clamp(12px, 3.2vw, 14px); }
 
-      /* низ */
+      /* напівпрозорий блок з МІНІМАЛЬНИМИ відступами (під текст) */
+      .center-text-block{
+        display:inline-block;
+        position:absolute;
+        left:50%; transform:translateX(-50%);
+        top:58%;
+        background:rgba(255,255,255,0.60);
+        color:var(--brand);
+        font-weight:700;
+        line-height:1.3;
+        font-size:clamp(16px, 4.2vw, 20px);
+        padding:6px 10px;           /* мінімальні відступи */
+        border-radius:10px;
+        max-width:92vw;             /* щоб не вилазило за краї */
+        text-align:center;
+        white-space:nowrap;         /* тримаємо в один ряд (короткий текст) */
+        backdrop-filter:blur(1px);
+        z-index:1;
+      }
+
+      /* низ як на Home */
       .bottom-fixed{ bottom:0; }
       .bottom-inner{ gap:0; }
       .bottom-bar{ height:48px; }
@@ -99,6 +121,11 @@
 
     @media (max-width: 900px) and (orientation:landscape){
       .brand{ white-space:nowrap; max-width:none; font-size:clamp(18px, 3.2vw, 26px); }
+      .center-text-block{
+        top:54%;
+        padding:6px 10px;           /* все ще мінімальні */
+        font-size:clamp(14px, 2.6vw, 18px);
+      }
       .bottom-bar{ height:46px; }
       footer{ height:42px; }
     }
@@ -126,6 +153,12 @@
       </div>
     </div>
   </header>
+
+  <!-- Напівпрозорий блок — ТІЛЬКИ ДЛЯ МОБІЛЬНИХ; мінімальні відступи -->
+  <div class="center-text-block">
+    <span class="t uk">Про нас</span>
+    <span class="t en">About</span>
+  </div>
 
   <main>
     <section class="page">
