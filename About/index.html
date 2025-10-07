@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Про нас — Асоціація сприяння безпеці на транспорті України</title>
   <style>
     :root{
@@ -30,7 +33,7 @@
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
-      align-items:center;
+      align-items:stretch; /* Для повної ширини елементів */
       overflow-x:hidden;
     }
 
@@ -76,6 +79,7 @@
         background-position:center top;
         background-size:cover;
         min-height:100dvh;
+        align-items:stretch; /* Повна ширина для дочірніх елементів */
       }
 
       /* ШАПКА: назва + мовні кнопки в одному рівні, вкладки знизу */
@@ -86,6 +90,8 @@
         align-items:center;
         gap:10px 12px;
         padding:12px 14px;
+        width:100%;
+        margin:0; /* Усуваємо можливі відступи */
       }
       .brand{
         font-size:clamp(20px,6vw,28px);
@@ -101,7 +107,7 @@
       nav{
         display:flex;
         grid-column:1 / -1;
-        justify-content:space-around;
+        justify-content:space-around; /* Розтягнуті в портретній */
         gap:12px;
         overflow-x:auto;
         -webkit-overflow-scrolling:touch;
@@ -111,12 +117,16 @@
 
       /* нижні смуги */
       .bottom-fixed{ bottom:0; }
-      .bottom-bar{ height:48px; }
+      .bottom-bar{ 
+        height:48px;
+        background: var(--brand); /* Зелений колір */
+        width:100%;
+      }
       .marquee{ font-size:15px; }
       footer{ height:44px; font-size:13px; }
     }
 
-    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки під назвою */
+    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки компактні */
     @media (max-width:1200px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -125,10 +135,22 @@
       nav{
         display:flex;
         grid-column:1 / -1;
-        justify-content:space-around;
+        justify-content:flex-start; /* Вкладки компактно зліва */
+        gap:12px;
+        flex-wrap:wrap; /* Дозволяємо перенос, якщо вкладки не поміщаються */
+        max-width:50%; /* Обмежуємо ширину вкладок до половини шапки */
       }
       .page{
         margin-top:16px;
+      }
+      header {
+        width:100%;
+        margin:0; /* Усуваємо зазори */
+        padding:12px 14px; /* Зберігаємо внутрішні відступи */
+      }
+      .bottom-bar {
+        background: var(--brand); /* Зелений колір */
+        width:100%;
       }
     }
   </style>
