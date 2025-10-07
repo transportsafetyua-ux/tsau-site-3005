@@ -111,9 +111,14 @@
         gap:12px;
         overflow-x:auto;
         -webkit-overflow-scrolling:touch;
+        flex-wrap:nowrap; /* Запобігаємо перенесенню вкладок */
       }
       nav::-webkit-scrollbar{ height:0; }
-      nav a{ font-size:clamp(14px,3.4vw,16px); white-space:nowrap; }
+      nav a{ 
+        font-size:clamp(12px,3vw,14px); /* Менший шрифт для компактності */
+        white-space:nowrap;
+        flex-shrink:1; /* Дозволяємо стискання посилань */
+      }
 
       /* нижні смуги */
       .bottom-fixed{ bottom:0; }
@@ -144,12 +149,12 @@
         grid-column:1 / -1;
         justify-content:flex-start;
         gap:12px;
-        flex-wrap:nowrap; /* Запобігаємо перенесенню вкладок */
-        max-width:50%; /* Обмежуємо ширину до половини шапки */
+        flex-wrap:nowrap;
+        max-width:50%;
       }
       nav a{
-        font-size:clamp(12px,3vw,14px); /* Менший розмір шрифту для компактності */
-        white-space:nowrap; /* Запобігаємо перенесенню тексту в посиланнях */
+        font-size:clamp(12px,3vw,14px);
+        white-space:nowrap;
       }
       .page{
         margin-top:16px;
