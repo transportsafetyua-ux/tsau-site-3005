@@ -134,7 +134,7 @@
       /* ряд вкладок під назвою */
       nav{
         grid-column:1 / -1;
-        justify-content:center;
+        justify-content:space-around;
         gap:12px;
         overflow-x:auto;
         -webkit-overflow-scrolling:touch;
@@ -142,9 +142,12 @@
       nav::-webkit-scrollbar{ height:0; }
       nav a{ font-size:clamp(14px,3.4vw,16px); white-space:nowrap; }
 
-      /* центр-блок — читабельно на мобільному */
+      /* центр-блок — читабельно на мобільному
+         ПІДНЯТО ПРОПОРЦІЙНО (на половину власної висоти) */
       .center-text-block{
         top:58%;
+        left:50%;
+        transform:translate(-50%, -50%);   /* підняти на 1/2 висоти блоку */
         width:min(92vw, 560px);
         padding:12px 14px;
         border-radius:10px;
@@ -166,8 +169,10 @@
         white-space:nowrap;                 /* один рядок */
         font-size:clamp(18px,3.2vw,26px);
       }
+      /* залишаємо пропорційне підняття блоку */
       .center-text-block{
-        top:55%;                            /* трохи вище, щоб не заходити на меню */
+        top:55%;
+        transform:translate(-50%, -50%);
         width:min(78vw, 720px);
       }
     }
@@ -195,7 +200,7 @@
     </nav>
   </header>
 
-  <!-- Напівпрозорий блок по центру фото (ПК — як було) -->
+  <!-- Напівпрозорий блок по центру фото -->
   <div class="center-text-block">
     <div class="line1 t uk">Впровадження стандартів ЄС</div>
     <div class="line1 t en">Implementing EU standards</div>
@@ -212,7 +217,7 @@
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIІATION OF UKRAINE – </span>
           <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
