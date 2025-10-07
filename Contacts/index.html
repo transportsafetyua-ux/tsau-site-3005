@@ -59,7 +59,7 @@
       display:flex; 
       align-items:center; 
       gap:12px; 
-      order: 1; /* Переміщує .top-actions після nav у десктопі */
+      order: 1; /* Перемикач після nav, край справа */
     }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
@@ -79,7 +79,7 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) — СИНХРОНІЗОВАНО З ПУБЛІКАЦІЯМИ ===== */
+    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) ===== */
     @media (max-width:1200px){
       html, body{
         background-position:center top;
@@ -103,16 +103,19 @@
         line-height:1.15;
         color:#fff;
         white-space:normal;
-        grid-column: 1;
       }
       .top-actions{
-        grid-column: 2;
+        grid-row: 1; /* Чітко фіксуємо в першому рядку */
+        grid-column: 2; /* Чітко фіксуємо в другій колонці */
         justify-self:end;
         gap:8px;
+        display:flex;
+        align-items:center;
       }
       nav{
         display:flex;
         grid-column:1 / -1;
+        grid-row: 2; /* Вкладки в другому рядку */
         justify-content:space-around;
         gap:12px;
         overflow-x:auto;
@@ -150,6 +153,7 @@
       nav{
         display:flex;
         grid-column:1 / -1;
+        grid-row: 2;
         justify-content:flex-start;
         gap:12px;
         flex-wrap:nowrap;
