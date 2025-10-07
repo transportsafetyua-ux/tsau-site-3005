@@ -1,105 +1,128 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Контакти — Асоціація сприяння безпеці на транспорті України</title>
-  <style>
-    :root{
-      --brand:#2d442f;
-      --text:#111827;
-      --page-bg:#dfe8f2;
-      --nav-sand:#f5deb3;
-      --ticker-h:60px;
-      --footer-h:44px;
-      --between:0px;
-      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
-    }
-    *{ box-sizing:border-box }
-    html,body{ height:100%; margin:0; }
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background-color: var(--page-bg);
-      background-image: url('../Home/buses.jpg');
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: contain;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Контакти — Асоціація сприяння безпеці на транспорті України</title>
+  <style>
+    :root{
+      --brand:#2d442f;
+      --text:#111827;
+      --page-bg:#dfe8f2;
+      --nav-sand:#f5deb3;
+      --ticker-h:60px;
+      --footer-h:44px;
+      --between:0px;
+      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; } /* Виправлено: додано обнулення margin/padding */
+    html,body{ height:100%; margin:0; }
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--page-bg);
+      background-image: url('../Home/buses.jpg');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: contain;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
+    }
 
-    .t.en{ display:none; }
-    .lang-en .t.uk{ display:none; }
-    .lang-en .t.en{ display:inline; }
+    .t.en{ display:none; }
+    .lang-en .t.uk{ display:none; }
+    .lang-en .t.en{ display:inline; }
 
-    header{
-      background: var(--brand);
-      color:#fff;
-      padding:12px 18px;
-      display:flex;
-      align-items:center;
-      gap:16px;
-    }
-    .brand{
-      font-weight:700;
-      font-size:32px;
-      white-space:nowrap;
-      color:#fff;
-    }
-    nav{
-      display:flex;
-      gap:14px;
-      margin-left:10px;
-      flex-wrap:wrap;
-    }
-    nav a{
-      color: var(--nav-sand);
-      text-decoration:none;
-      font-size:14px;
-    }
-    nav a:hover{ text-decoration:underline; }
-    .top-actions{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .lang-btn{
-      color:#fff;
-      text-decoration:none;
-      font-weight:700;
-      padding:6px 10px;
-      border-radius:6px;
-      border:1px solid rgba(255,255,255,.25);
-    }
-    .lang-btn.active{ background: rgba(255,255,255,.18); }
+    /* ШАПКА */
+    header{
+      background: var(--brand);
+      color:#fff;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    .brand{
+      font-weight:700;
+      font-size:32px;
+      white-space:nowrap;
+      color:#fff;
+    }
+    nav{
+      display:flex;
+      gap:14px;
+      margin-left:10px;
+      flex-wrap:wrap;
+    }
+    nav a{
+      color: var(--nav-sand);
+      text-decoration:none;
+      font-size:14px;
+    }
+    nav a:hover{ text-decoration:underline; }
+    .top-actions{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .lang-btn{
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:6px 10px;
+      border-radius:6px;
+      border:1px solid rgba(255,255,255,.25);
+    }
+    .lang-btn.active{ background: rgba(255,255,255,.18); }
 
-    main{ flex:1 0 auto; padding:16px; }
-    .page{
-      max-width:920px; margin:72px auto 24px; padding:16px 20px;
-      background: rgba(255,255,255,0.78);
-      border-radius:12px;
-      box-shadow:0 6px 18px rgba(0,0,0,.15);
-      backdrop-filter: blur(1px);
-    }
-    .page h1{
-      margin:0 0 12px 0;
-      font-size:28px;
-      line-height:1.25;
-      color:#0a2f66;
-    }
-    .page p{ margin:0 0 10px 0; line-height:1.6; }
+    /* ОСНОВНИЙ КОНТЕНТ */
+    main{ flex:1 0 auto; padding:16px; }
+    .page{
+      max-width:920px;
+      margin:72px auto 24px;
+      padding:16px 20px;
+      background: rgba(255,255,255,0.78);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.15);
+      backdrop-filter: blur(1px);
+    }
+    .page h1{
+      margin:0 0 12px 0;
+      font-size:28px;
+      line-height:1.25;
+      color:#0a2f66;
+    }
+    .page p{ margin:0 0 10px 0; line-height:1.6; }
 
-    .bottom-fixed{ position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none;}
-    .bottom-inner{ width: 100%; display:flex; flex-direction:column; gap: var(--between); pointer-events:auto;}
-    .bottom-bar{ background: var(--brand); height: var(--ticker-h); width:100%; display:flex; align-items:center; justify-content:center; overflow:hidden;}
-    .marquee{ display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px;}
-    @keyframes scroll{ 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
-    footer{ background: var(--page-bg); height: var(--footer-h); width:100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;}
-  </style>
+    /* НИЖНІ СМУГИ */
+    .bottom-fixed{ position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none;}
+    .bottom-inner{ width: 100%; display:flex; flex-direction:column; gap: var(--between); pointer-events:auto;}
+    .bottom-bar{ background: var(--brand); height: var(--ticker-h); width:100%; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+    .marquee{ display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px;}
+    @keyframes scroll{ 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
+    footer{ background: var(--page-bg); height: var(--footer-h); width:100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;}
+
+    /* АДАПТИВНІ СТИЛІ для мобільних пристроїв */
+    @media (max-width: 900px) {
+        body { background-size: cover; }
+        header { flex-direction: column; align-items: center; padding: 10px 14px; gap: 8px; }
+        .brand { font-size: 24px; text-align: center; white-space: normal; }
+        nav { margin-left: 0; width: 100%; justify-content: center; gap: 10px; padding: 0 8px; }
+        nav a { font-size: 13px; }
+        .top-actions { margin-left: 0; width: 100%; justify-content: center; gap: 8px; }
+        .lang-btn { padding: 4px 8px; font-size: 13px; }
+        main { padding: 8px; }
+        .page { margin: 16px auto 16px; padding: 12px 14px; }
+        .page h1 { font-size: 22px; }
+        .page p { font-size: 15px; }
+        .bottom-bar { height: 48px; }
+        .marquee { font-size: 15px; }
+        footer { height: 40px; font-size: 12px; }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -128,15 +151,15 @@
       </h1>
       <p class="t uk">
         АСБТУ — Асоціація сприяння безпеці на транспорті України<br><br>
-        **Email: transport.safety.ua@gmail.com**<br>
-        **Телефон: +380 (93) 827-18-31**<br>
-        **Адреса: м. Вінниця, вул. Стеценка, 57/119**
+        Email: transport.safety.ua@gmail.com<br>
+        Телефон: +380 (93) 827-18-31<br>
+        Адреса: м. Вінниця, вул. Стеценка, 57/119
       </p>
       <p class="t en">
         Transportation Safety Association of Ukraine<br><br>
-        **Email: transport.safety.ua@gmail.com**<br>
-        **Phone: +380 (93) 827-18-31**<br>
-        **Address: Vinnytsia, Stetsenka St., 57/119**
+        Email: transport.safety.ua@gmail.com<br>
+        Phone: +380 (93) 827-18-31<br>
+        Address: Vinnytsia, Stetsenka St., 57/119
       </p>
     </section>
   </main>
