@@ -59,6 +59,7 @@
       display:flex; 
       align-items:center; 
       gap:12px; 
+      order: 1; /* Переміщує .top-actions після nav у десктопі */
     }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
@@ -102,8 +103,10 @@
         line-height:1.15;
         color:#fff;
         white-space:normal;
+        grid-column: 1;
       }
       .top-actions{
+        grid-column: 2;
         justify-self:end;
         gap:8px;
       }
