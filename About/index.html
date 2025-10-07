@@ -15,7 +15,7 @@
       --between:0px;
       --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
     }
-    *{ box-sizing:border-box; margin:0; padding:0; } 
+    *{ box-sizing:border-box; margin:0; padding:0; }
     html,body{ height:100%; margin:0; }
     body{
       font-family: Arial, Helvetica, sans-serif;
@@ -31,12 +31,11 @@
       padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
 
-    /* двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (як було) ===== */
+    /* ПК-версія (не змінено) */
     header{
       background: var(--brand);
       color:#fff;
@@ -55,12 +54,9 @@
 
     main{ flex:1 0 auto; padding:16px; }
     .page{
-      max-width:920px;
-      margin:72px auto 24px;
-      padding:16px 20px;
+      max-width:920px; margin:72px auto 24px; padding:16px 20px;
       background: rgba(255,255,255,0.78);
-      border-radius:12px;
-      box-shadow:0 6px 18px rgba(0,0,0,.15);
+      border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.15);
       backdrop-filter: blur(1px);
     }
     .page h1{ margin:0 0 12px 0; font-size:28px; line-height:1.25; color:#0a2f66; }
@@ -73,37 +69,51 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== MOBILE (є ТІЛЬКИ ОДИН блок) ===== */
+    /* Мобільна версія */
     @media (max-width: 900px) {
-      /* фон */
       body{ background-size: cover; }
 
-      /* шапка */
-      header{ flex-direction:column; align-items:center; padding:10px 14px; gap:8px; }
-      .brand{ font-size:24px; text-align:center; white-space:normal; }
-      nav{ margin-left:0; width:100%; justify-content:center; gap:10px; padding:0 8px; }
-      nav a{ font-size:13px; }
-      .top-actions{ margin-left:0; width:100%; justify-content:center; gap:8px; }
+      /* Шапка: назва + мови на одному рівні (як на Головна) */
+      header{
+        display:grid;
+        grid-template-columns: 1fr auto;
+        align-items:center;
+        padding:10px 14px;
+        gap:8px;
+      }
+      .brand{
+        font-size:clamp(20px,5vw,26px);
+        color:#fff;
+        line-height:1.15;
+        white-space:normal;
+      }
+      .top-actions{
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+        gap:8px;
+      }
       .lang-btn{ padding:4px 8px; font-size:13px; }
 
-      /* ЄДИНИЙ напівпрозорий блок по центру автобуса */
+      nav{
+        grid-column:1 / -1;
+        display:flex;
+        justify-content:center;
+        gap:12px;
+        padding-top:6px;
+        flex-wrap:wrap;
+      }
+      nav a{ font-size:13px; }
+
+      /* Напівпрозорий блок */
       .page{
         max-width: 92vw;
-        margin: 22vh auto 16px;    /* позиція по висоті на скло центрального автобуса */
+        margin: 22vh auto 16px;
         padding: 14px 16px;
       }
       .page h1{ font-size:22px; margin-bottom:8px; }
       .page p{ font-size:15px; }
 
-      /* якщо десь залишилися інші напівпрозорі/герой-блоки — ховаємо їх у мобільному,
-         щоб НЕ було дублю. (Класи-пастки на всяк випадок) */
-      .center-text-block,
-      .hero-title,
-      .hero,
-      .overlay,
-      .mobile-dup { display:none !important; }
-
-      /* низ */
       .bottom-bar{ height:48px; }
       .marquee{ font-size:15px; }
       footer{ height:40px; font-size:12px; }
@@ -116,6 +126,10 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
+    <div class="top-actions">
+      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+      <a href="#" class="lang-btn" id="btn-en">EN</a>
+    </div>
     <nav>
       <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
@@ -123,14 +137,9 @@
       <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
-    <div class="top-actions">
-      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
-      <a href="#" class="lang-btn" id="btn-en">EN</a>
-    </div>
   </header>
 
   <main>
-    <!-- ЄДИНИЙ напівпрозорий блок -->
     <section class="page">
       <h1>
         <span class="t uk">Про нас</span>
