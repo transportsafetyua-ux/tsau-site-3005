@@ -73,8 +73,12 @@
     .lang-btn.active{ background:rgba(255,255,255,.18); }
 
     .center-text-block{
-      position:absolute; left:50%; transform:translateX(-50%); /* лише горизонтальне центрування */
+      /* Десктоп/Базовий стиль */
+      position:absolute; left:50%; 
       top:60%;
+      /* Виправлення: Тепер використовуємо translate(-50%, -50%) для ВСІХ мобільних версій */
+      transform:translateX(-50%); 
+      
       background:rgba(255,255,255,0.6);
       padding:16px 24px; border-radius:8px; text-align:center;
       font-size:22px; font-weight:700; line-height:1.45;
@@ -114,7 +118,14 @@
       .lang-btn{ padding:4px 8px; font-size:clamp(12px, 3.2vw, 14px); }
 
       html, body{ background-position:center top; background-size:cover; }
-      .center-text-block{ top:58%; font-size:clamp(16px, 4.4vw, 20px); padding:12px 14px; width:min(92vw, 560px); }
+      .center-text-block{ 
+        top:58%; 
+        font-size:clamp(16px, 4.4vw, 20px); 
+        padding:12px 14px; 
+        width:min(92vw, 560px); 
+        /* КЛЮЧОВА ЗМІНА #1: Застосовуємо вертикальне зміщення тут для мобільного портрету */
+        transform: translate(-50%, -50%);
+      }
 
       .bottom-fixed{ bottom:0; }
       .bottom-inner{ gap:0; }
@@ -137,10 +148,9 @@
 
       /* Фікс позиції напівпрозорого блоку у landscape (ПК/портрет не зачіпаємо) */
       .center-text-block{
-        /* КЛЮЧОВА ЗМІНА: Зменшення top для явного підняття */
-        top:30%;
-        /* ВИПРАВЛЕННЯ: Це забезпечує горизонтальне центрування (-50% ширини) 
-           та підняття на половину висоти (-50% висоти) */
+        /* КЛЮЧОВА ЗМІНА #2: Знижуємо top до 18% для гарантованого підйому вище */
+        top:18%; 
+        /* Зберігаємо центрування: піднімає блок на половину його висоти від точки 18% */
         transform: translate(-50%, -50%);
       }
     }
