@@ -33,7 +33,7 @@
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
-      align-items:stretch; /* Для повної ширини елементів */
+      align-items:stretch;
       overflow-x:hidden;
     }
 
@@ -79,7 +79,7 @@
         background-position:center top;
         background-size:cover;
         min-height:100dvh;
-        align-items:stretch; /* Повна ширина для дочірніх елементів */
+        align-items:stretch;
       }
 
       /* ШАПКА: назва + мовні кнопки в одному рівні, вкладки знизу */
@@ -91,7 +91,7 @@
         gap:10px 12px;
         padding:12px 14px;
         width:100%;
-        margin:0; /* Усуваємо можливі відступи */
+        margin:0;
       }
       .brand{
         font-size:clamp(20px,6vw,28px);
@@ -107,7 +107,7 @@
       nav{
         display:flex;
         grid-column:1 / -1;
-        justify-content:space-around; /* Розтягнуті в портретній */
+        justify-content:space-around;
         gap:12px;
         overflow-x:auto;
         -webkit-overflow-scrolling:touch;
@@ -119,11 +119,18 @@
       .bottom-fixed{ bottom:0; }
       .bottom-bar{ 
         height:48px;
-        background: var(--brand); /* Зелений колір */
+        background: var(--brand);
         width:100%;
       }
       .marquee{ font-size:15px; }
       footer{ height:44px; font-size:13px; }
+    }
+
+    /* Портретна орієнтація: розтягнуті вкладки */
+    @media (max-width:1200px) and (orientation:portrait){
+      nav{
+        justify-content:space-around;
+      }
     }
 
     /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки компактні */
@@ -135,21 +142,25 @@
       nav{
         display:flex;
         grid-column:1 / -1;
-        justify-content:flex-start; /* Вкладки компактно зліва */
+        justify-content:flex-start;
         gap:12px;
-        flex-wrap:wrap; /* Дозволяємо перенос, якщо вкладки не поміщаються */
-        max-width:50%; /* Обмежуємо ширину вкладок до половини шапки */
+        flex-wrap:nowrap; /* Запобігаємо перенесенню вкладок */
+        max-width:50%; /* Обмежуємо ширину до половини шапки */
+      }
+      nav a{
+        font-size:clamp(12px,3vw,14px); /* Менший розмір шрифту для компактності */
+        white-space:nowrap; /* Запобігаємо перенесенню тексту в посиланнях */
       }
       .page{
         margin-top:16px;
       }
       header {
         width:100%;
-        margin:0; /* Усуваємо зазори */
-        padding:12px 14px; /* Зберігаємо внутрішні відступи */
+        margin:0;
+        padding:12px 14px;
       }
       .bottom-bar {
-        background: var(--brand); /* Зелений колір */
+        background: var(--brand);
         width:100%;
       }
     }
