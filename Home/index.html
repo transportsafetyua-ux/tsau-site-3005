@@ -5,177 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Головна — Асоціація сприяння безпеці на транспорті України</title>
   <style>
-    /* ПОВНИЙ CSS ІЗ site.css ЗІ ЗМІНАМИ ДЛЯ .hero-card */
     :root{
-      --brand:#0a3d91;
-      --green:#274b36;
-      --sand:#f5deb3;
+      --brand:#2d442f;
       --text:#111827;
-      --page:#dfe8f2;
-      --footer:#2d3e35;
-      --card-bg:#ffffffee;
-      --gap: clamp(10px, 2.5vw, 24px);
+      --page-bg:#dfe8f2;
+      --nav-sand:#f5deb3;
+      --ticker-h:60px;
+      --footer-h:44px;
+      --between:0px;
+      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
     }
-
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html,body{ height:100%; }
+    *{ box-sizing:border-box; margin:0; padding:0; } 
+    html,body{ height:100%; margin:0; }
     body{
-      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:#fff;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--page-bg);
+      background-image: url('../Home/buses.jpg'); 
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: contain; 
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
-
-    /* Логіка перемикання мови */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
-    
-    /* ШАПКА */
-    .top{ background:#284b36; color:#fff; }
-    .top .wrap{
-      max-width:1200px; margin:0 auto; padding:12px var(--gap);
-      display:grid; grid-template-columns: 1fr auto auto; gap: var(--gap); align-items:center;
-    }
-    .brand{ margin:0; font-size: clamp(18px, 2.2vw, 32px); font-weight:800; }
-    .nav{ display:flex; gap:16px; }
-    .nav a{ color:#fff; text-decoration:none; font-weight:600; padding:6px 0; }
-    .nav a:hover{ text-decoration:underline; }
-    .lang{ display:flex; gap:10px; }
-    .btn{ border:0; background:#fff; color:#274b36; padding:6px 12px; border-radius:10px; font-weight:700; cursor:pointer; }
-    .btn-ghost{ background:transparent; color:#fff; border:1px solid #ffffff88; }
 
-    /* ГЕРО з фоном */
-    .hero{
-      min-height: 56vh;
-      background: url('buses.jpg') center/cover no-repeat;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      padding: clamp(16px, 4vw, 32px);
+    header{
+      background: var(--brand); color:#fff; padding:12px 18px;
+      display:flex; align-items:center; gap:16px;
     }
-    .hero-card{
-      background: var(--card-bg);
-      border-radius: 14px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.15);
-      padding: clamp(16px, 3vw, 28px) clamp(18px, 4vw, 40px);
-      text-align:center;
-      max-width: 680px;
-      
-      /* ЗМІНИ ДЛЯ ПІДЙОМУ ТА ЗМЕНШЕННЯ ТЕКСТУ */
-      transform: translateY(-50%); 
-      margin-bottom: -50px; 
-    }
-    .hero-card h2{
-      margin:0 0 8px;
-      /* Розмір шрифту ПК-версії залишається з site.css, змінено лише clamp */
-      font-size: clamp(20px, 2.4vw, 28px); 
-      font-weight:800;
-    }
-    .hero-card p{
-      margin:0;
-      /* Розмір шрифту ПК-версії залишається з site.css, змінено лише clamp */
-      font-size: clamp(14px, 1.6vw, 18px);
-    }
+    .brand{ font-weight:700; font-size:32px; white-space:nowrap; color:#fff; }
+    nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
+    nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
+    nav a:hover{ text-decoration:underline; }
 
-    /* світла смуга під фото */
-    .page-strip{
-      background: var(--page);
-      height: clamp(48px, 9vw, 90px);
-      position: relative;
-    }
+    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
+    .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
+    .lang-btn.active{ background: rgba(255,255,255,.18); }
 
-    /* ФУТЕР */
-    .footer{ background: var(--footer); color:#d7e3dc; }
-    .footer .wrap{ max-width:1200px; margin:0 auto; padding: 12px var(--gap); text-align:center; letter-spacing:.2px; font-weight:600; }
-    .small{ font-size: 14px; }
-
-    /* ВАЖЛИВО: ПРАВИЛА МОБІЛЬНОЇ ВЕРСІЇ З site.css */
-    @media (max-width: 720px){
-      .top .wrap{
-        grid-template-columns: 1fr;
-        gap:8px;
-      }
-      .nav{ flex-wrap:wrap; justify-content:center;}
-      .brand{ font-size: 20px; text-align:center; }
-      .lang{ justify-content:center; }
-      
-      /* АДАПТАЦІЯ hero-card ДЛЯ МОБІЛЬНОГО */
-      .hero-card{
-        margin-bottom: -100px;
-        /* Мобільні шрифти зменшено на 10% */
-        /* clamp(20px, 2.0vw, 25px) та clamp(14px, 1.4vw, 16px) */
-      }
-      
-      /* Чіткіше визначення мобільних шрифтів для h2/p в hero-card */
-      .hero-card h2{
-          font-size: clamp(18px, 2.0vw, 25px); /* ~20px на мобільному */
-      }
-      .hero-card p{
-          font-size: clamp(14px, 1.4vw, 16px); /* ~14px на мобільному */
-      }
+    main{ flex:1 0 auto; padding:16px; }
+    .page{
+      max-width:920px; margin:72px auto 24px; padding:16px 20px;
+      background: rgba(255,255,255,0.78);
+      border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.15);
+      backdrop-filter: blur(1px);
     }
+    .page h1{ margin:0 0 12px 0; font-size:28px; line-height:1.25; color:#0a2f66; }
+    .page p{ margin:0 0 10px 0; line-height:1.6; }
+
+    .bottom-fixed{ position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none; }
+    .bottom-inner{ width: 100%; display: flex; flex-direction: column; gap: var(--between); pointer-events: auto; }
+    .bottom-bar{ background: var(--brand); height: var(--ticker-h); width: 100%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .marquee{ display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px; }
+    @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
+    footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
   </style>
 </head>
 <body>
-  <header class="top">
-    <div class="wrap">
-      <h1 class="brand">
-        <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
-        <span class="t en">Transportation Safety Association of Ukraine</span>
-      </h1>
-      <nav class="nav">
-        <a href="index.html" class="active"><span class="t uk">Головна</span><span class="t en">Home</span></a>
-        <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
-        <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
-        <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
-        <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
-      </nav>
-      <div class="lang">
-        <button class="btn" id="btn-uk">Укр</button>
-        <button class="btn btn-ghost" id="btn-en">EN</button>
-      </div>
+  <header>
+    <div class="brand">
+      <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
+      <span class="t en">Transportation Safety Association of Ukraine</span>
+    </div>
+    <nav>
+      <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
+      <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
+      <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
+      <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
+      <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
+    </nav>
+    <div class="top-actions">
+      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+      <a href="#" class="lang-btn" id="btn-en">EN</a>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-card">
-        <h2>
-          <span class="t uk">Впровадження стандартів ЄС</span>
-          <span class="t en">Implementing EU standards</span>
-        </h2>
-        <p>
-          <span class="t uk">задля якості послуг для пасажирів і сталого розвитку громад</span>
-          <span class="t en">for quality passenger services and sustainable community development</span>
-        </p>
-      </div>
+    <section class="page">
+      <h1>
+        <span class="t uk">Впровадження стандартів ЄС</span>
+        <span class="t en">Implementation of EU Standards</span>
+      </h1>
+      <p>
+        <span class="t uk">задля якості послуг для пасажирів і сталого розвитку громад.</span>
+        <span class="t en">to improve the quality of passenger services and promote sustainable community development.</span>
+      </p>
     </section>
-    
-    <div class="page-strip"></div>
   </main>
 
-  <footer class="footer">
-    <div class="wrap">
-      <div class="small">©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
+  <div class="bottom-fixed">
+    <div class="bottom-inner">
+      <div class="bottom-bar">
+        <div class="marquee">
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
+          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ</span>
+        </div>
+      </div>
+      <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
     </div>
-  </footer>
+  </div>
 
   <script>
     (function(){
-      const LANG_KEY = 'tsau_lang_home';
+      const LANG_KEY = 'tsau_lang';
       const body = document.body;
       const ukBtn = document.getElementById('btn-uk');
       const enBtn = document.getElementById('btn-en');
-      
       function applyLang(lang){
         body.classList.toggle('lang-en', lang === 'en');
         localStorage.setItem(LANG_KEY, lang);
-        ukBtn.classList.toggle('btn-ghost', lang === 'en');
-        ukBtn.classList.toggle('btn', lang === 'uk');
-        enBtn.classList.toggle('btn-ghost', lang === 'uk');
-        enBtn.classList.toggle('btn', lang === 'en');
+        ukBtn.classList.toggle('active', lang === 'uk');
+        enBtn.classList.toggle('active', lang === 'en');
       }
-
       const saved = localStorage.getItem(LANG_KEY) || 'uk';
       applyLang(saved);
       ukBtn.addEventListener('click', e=>{e.preventDefault();applyLang('uk');});
