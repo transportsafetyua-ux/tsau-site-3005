@@ -3,207 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Асоціація сприяння безпеці на транспорті України</title>
-
+  <title>Головна — Асоціація сприяння безпеці на транспорті України</title>
   <style>
+    /* ПОВНИЙ CSS ІЗ site.css (з деякими корекціями для вбудованого використання) */
     :root{
+      --brand:#0a3d91;       /* неактивно зараз, залишено на майбутнє */
+      --green:#274b36;
+      --sand:#f5deb3;
       --text:#111827;
-      --page-bg:#dfe8f2;
-
-      /* нижні смуги */
-      --ticker-h:60px;
-      --footer-h:44px;
-      --between:0px;
-      --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
-
-      /* зелено-сірий брендовий колір, як на інших вкладках */
-      --brand:#2d442f;
-      --nav-sand:#f5deb3;
+      --page:#dfe8f2;        /* світла сіро-блакитна смуга під фото */
+      --footer:#2d3e35;      /* темна смуга внизу */
+      --card-bg:#ffffffee;   /* напівпрозора картка */
+      --gap: clamp(10px, 2.5vw, 24px);
     }
 
-    *{ box-sizing:border-box; margin:0; padding:0; } 
-    html,body{ height:100%; margin:0; }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{ height:100%; }
+    body{
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:#fff;
+    }
 
-    /* Перемикач мови (укр/англ) */
+    /* Логіка перемикання мови */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
-
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background-color: var(--page-bg);
-
-      /* фон-ілюстрація автобусів */
-      background-image: url('buses.jpg');
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: contain;
-
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-
-      /* резерв місця під фіксовані нижні смуги */
-      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
-    }
-
-    /* ШАПКА — ВИПРАВЛЕНІ СТИЛІ ДЛЯ ПК */
-    header{
-      background: var(--brand);
+    
+    /* ШАПКА */
+    .top{
+      background:#284b36; /* темно-зелений як на скрині */
       color:#fff;
-      padding:12px 18px;
-      display:flex;
-      /* Вирівнюємо елементи по вертикалі і рівномірно розподіляємо простір (як на інших вкладках) */
-      align-items:center; 
-      justify-content:flex-start; /* Всі елементи починаються зліва */
-      gap:16px;
+    }
+    .top .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:12px var(--gap);
+      display:grid;
+      grid-template-columns: 1fr auto auto;
+      gap: var(--gap);
+      align-items:center;
     }
     .brand{
-      font-weight:700;
-      font-size:32px;
-      white-space:nowrap;
+      margin:0;
+      font-size: clamp(18px, 2.2vw, 32px);
+      font-weight:800;
+    }
+    .nav{
+      display:flex;
+      gap:16px;
+    }
+    .nav a{
       color:#fff;
-      /* Визначаємо, щоб бренд не обгортався на ПК */
-      flex-shrink: 0; 
+      text-decoration:none;
+      font-weight:600;
+      padding:6px 0;
     }
-    nav{ 
-      display:flex; 
-      gap:14px; 
-      margin-left:10px; 
-      flex-wrap:wrap; 
-      /* Дозволяємо навігації займати доступний простір, щоб відштовхнути .top-actions */
-      flex-grow: 1;
+    .nav a:hover{ text-decoration:underline; }
+    .lang{ display:flex; gap:10px; }
+    .btn{
+      border:0;
+      background:#fff;
+      color:#274b36;
+      padding:6px 12px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
     }
-    nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
-    nav a:hover{ text-decoration:underline; }
-
-    /* Перемикач мов перенесено на правий край */
-    .top-actions{ 
-      margin-left:auto; /* Цей елемент відштовхується вправо */
-      display:flex; 
-      align-items:center; 
-      gap:12px; 
-      /* Забороняємо обгортання і стиснення на ПК */
-      flex-shrink: 0; 
-    }
-    .lang-btn{
-      color:#fff; text-decoration:none; font-weight:700;
-      padding:6px 10px; border-radius:6px;
-      border:1px solid rgba(255,255,255,.25);
-    }
-    .lang-btn.active{ background: rgba(255,255,255,.18); }
-
-    main{ flex:1 0 auto; padding:16px; }
-
-    /* Напівпрозорий центральний блок — Базові стилі */
-    .center-text-block{
-      position: absolute;
-      left: 50%;
-      top: 60%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.6);
-      padding: 16px 24px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--brand);
-      backdrop-filter: blur(1px);
+    .btn-ghost{
+      background:transparent;
+      color:#fff;
+      border:1px solid #ffffff88;
     }
 
-    /* НИЖНІ СМУГИ (без змін) */
-    .bottom-fixed{
-      position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none;
+    /* ГЕРО з фоном */
+    .hero{
+      min-height: 56vh;
+      background: url('buses.jpg') center/cover no-repeat; /* Потрібно буде перевірити шлях до файлу */
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding: clamp(16px, 4vw, 32px);
     }
-    .bottom-inner{
-      width: 100%; display: flex; flex-direction: column; gap: var(--between); pointer-events: auto;
+    .hero-card{
+      background: var(--card-bg);
+      border-radius: 14px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.15);
+      padding: clamp(16px, 3vw, 28px) clamp(18px, 4vw, 40px);
+      text-align:center;
+      max-width: 680px;
     }
-    .bottom-bar{
-      background: var(--brand); height: var(--ticker-h); width: 100%; display:flex; align-items:center; justify-content:center; overflow:hidden;
+    .hero-card h2{
+      margin:0 0 8px;
+      font-size: clamp(22px, 2.4vw, 28px);
+      font-weight:800;
     }
-    .marquee{
-      display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px;
+    .hero-card p{
+      margin:0;
+      font-size: clamp(16px, 1.6vw, 18px);
     }
-    @keyframes scroll{
-      0%{ transform:translateX(100%); }
-      100%{ transform:translateX(-100%); }
+
+    /* світла смуга під фото */
+    .page-strip{
+      background: var(--page);
+      height: clamp(48px, 9vw, 90px);
     }
-    footer{
-      background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;
+
+    /* ФУТЕР */
+    .footer{
+      background: var(--footer);
+      color:#d7e3dc;
     }
-    
-    /* ===== MOBILE STYLES (видалено, згідно з вашим запитом) ===== */
+    .footer .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding: 12px var(--gap);
+      text-align:center;
+      letter-spacing:.2px;
+      font-weight:600;
+    }
+    .small{ font-size: 14px; }
+
+    /* ВАЖЛИВО: ПОВЕРНЕННЯ ОРИГІНАЛЬНОЇ МОБІЛЬНОЇ ВЕРСІЇ */
+    @media (max-width: 720px){
+      .top .wrap{
+        grid-template-columns: 1fr;
+        gap:8px;
+      }
+      .nav{ flex-wrap:wrap; }
+      .brand{ font-size: 20px; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
-      <span class="t en">Transportation Safety Association of Ukraine</span>
-    </div>
-
-    <nav>
-      <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
-      <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
-      <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
-      <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
-      <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
-    </nav>
-
-    <div class="top-actions">
-      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
-      <a href="#" class="lang-btn" id="btn-en">EN</a>
+  <header class="top">
+    <div class="wrap">
+      <h1 class="brand">
+        <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
+        <span class="t en">Transportation Safety Association of Ukraine</span>
+      </h1>
+      <nav class="nav">
+        <a href="index.html" class="active"><span class="t uk">Головна</span><span class="t en">Home</span></a>
+        <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
+        <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
+        <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
+        <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
+      </nav>
+      <div class="lang">
+        <button class="btn" id="btn-uk">Укр</button>
+        <button class="btn btn-ghost" id="btn-en">EN</button>
+      </div>
     </div>
   </header>
 
-  <main></main>
-
-  <div class="center-text-block">
-    <span class="t uk">
-      Впровадження стандартів ЄС<br>
-      задля якості послуг для пасажирів<br>
-      і сталого розвитку громад
-    </span>
-    <span class="t en">
-      Implementing EU standards<br>
-      to ensure quality services for passengers<br>
-      and sustainable community development
-    </span>
-  </div>
-
-  <div class="bottom-fixed">
-    <div class="bottom-inner">
-      <div class="bottom-bar">
-        <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
-          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ</span>
-        </div>
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <h2>
+          <span class="t uk">Впровадження стандартів ЄС</span>
+          <span class="t en">Implementing EU standards</span>
+        </h2>
+        <p>
+          <span class="t uk">задля якості послуг для пасажирів</span>
+          <span class="t en">for quality passenger services</span>
+        </p>
       </div>
-      <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
+    </section>
+    
+    <div class="page-strip"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="small">©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</div>
     </div>
-  </div>
+  </footer>
 
   <script>
     (function(){
-      const LANG_KEY = 'tsau_lang';
+      const LANG_KEY = 'tsau_lang_home';
       const body = document.body;
       const ukBtn = document.getElementById('btn-uk');
       const enBtn = document.getElementById('btn-en');
-
+      
       function applyLang(lang){
         body.classList.toggle('lang-en', lang === 'en');
         localStorage.setItem(LANG_KEY, lang);
-        ukBtn.classList.toggle('active', lang === 'uk');
-        enBtn.classList.toggle('active', lang === 'en');
+        // Змінюємо класи кнопок відповідно до стилів site.css
+        ukBtn.classList.toggle('btn-ghost', lang === 'en');
+        ukBtn.classList.toggle('btn', lang === 'uk');
+        enBtn.classList.toggle('btn-ghost', lang === 'uk');
+        enBtn.classList.toggle('btn', lang === 'en');
       }
 
       const saved = localStorage.getItem(LANG_KEY) || 'uk';
       applyLang(saved);
-
-      ukBtn.addEventListener('click', e => { e.preventDefault(); applyLang('uk'); });
-      enBtn.addEventListener('click', e => { e.preventDefault(); applyLang('en'); });
+      ukBtn.addEventListener('click', e=>{e.preventDefault();applyLang('uk');});
+      enBtn.addEventListener('click', e=>{e.preventDefault();applyLang('en');});
     })();
   </script>
 </body>
