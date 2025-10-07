@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Публікації — Асоціація сприяння безпеці на транспорті України</title>
   <style>
     :root{
@@ -30,7 +33,7 @@
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
-      align-items:center;
+      align-items:stretch;
       overflow-x:hidden;
     }
 
@@ -39,7 +42,7 @@
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (НЕ ЧІПАЮ) ===== */
+    /* ===== DESKTOP (НЕ ЧІПАЄМО, застосовується для >1200px) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -69,14 +72,17 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ (до 900px) — як у About (еталон) ===== */
-    @media (max-width:900px){
+    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) — СИНХРОНІЗОВАНО З ГОЛОВНОЮ ===== */
+    @media (max-width:1200px){
+      /* фон та зображення — від краю до краю, без дублювань */
       html, body{
         background-position:center top;
         background-size:cover;
         min-height:100dvh;
+        align-items:stretch;
       }
 
+      /* ШАПКА: назва + мовні кнопки в одному рівні, вкладки знизу */
       header{
         display:grid;
         grid-template-columns: 1fr auto;
@@ -84,6 +90,8 @@
         align-items:center;
         gap:10px 12px;
         padding:12px 14px;
+        width:100%;
+        margin:0;
       }
       .brand{
         font-size:clamp(20px,6vw,28px);
@@ -95,27 +103,70 @@
         justify-self:end;
         gap:8px;
       }
+      /* ряд вкладок під назвою */
       nav{
+        display:flex;
         grid-column:1 / -1;
         justify-content:space-around;
         gap:12px;
         overflow-x:auto;
         -webkit-overflow-scrolling:touch;
+        flex-wrap:nowrap;
       }
       nav::-webkit-scrollbar{ height:0; }
-      nav a{ font-size:clamp(14px,3.4vw,16px); white-space:nowrap; }
+      nav a{ 
+        font-size:clamp(12px,3vw,14px);
+        white-space:nowrap;
+        flex-shrink:1;
+      }
 
+      /* нижні смуги */
       .bottom-fixed{ bottom:0; }
-      .bottom-bar{ height:48px; }
+      .bottom-bar{ 
+        height:48px;
+        background: var(--brand);
+        width:100%;
+      }
       .marquee{ font-size:15px; }
       footer{ height:44px; font-size:13px; }
     }
 
-    /* Альбомний мобільний: назва в один рядок, мови праворуч */
-    @media (max-width:900px) and (orientation:landscape){
+    /* Портретна орієнтація: розтягнуті вкладки */
+    @media (max-width:1200px) and (orientation:portrait){
+      nav{
+        justify-content:space-around;
+      }
+    }
+
+    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки компактні */
+    @media (max-width:1200px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
         font-size:clamp(18px,3.2vw,26px);
+      }
+      nav{
+        display:flex;
+        grid-column:1 / -1;
+        justify-content:flex-start;
+        gap:12px;
+        flex-wrap:nowrap;
+        max-width:50%;
+      }
+      nav a{
+        font-size:clamp(12px,3vw,14px);
+        white-space:nowrap;
+      }
+      .page{
+        margin-top:16px;
+      }
+      header {
+        width:100%;
+        margin:0;
+        padding:12px 14px;
+      }
+      .bottom-bar {
+        background: var(--brand);
+        width:100%;
       }
     }
   </style>
@@ -146,8 +197,8 @@
         <span class="t en">Publications</span>
       </h1>
       <p>
-        <span class="t uk">На цій сторінці будуть вибрані статті та матеріали, дозволені до публікації.</span>
-        <span class="t en">This page will feature selected articles and materials approved for publication.</span>
+        <span class="t uk">Ми публікуємо звіти, аналітичні матеріали та рекомендації щодо підвищення безпеки громадського транспорту, впровадження європейських стандартів та вдосконалення транспортної політики в Україні.</span>
+        <span class="t en">We publish reports, analytical materials, and recommendations on improving public transport safety, implementing EU standards, and enhancing transport policy in Ukraine.</span>
       </p>
     </section>
   </main>
@@ -157,7 +208,7 @@
       <div class="bottom-bar">
         <div class="marquee">
           <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
-          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAЇNE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
+          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
@@ -170,19 +221,16 @@
       const body = document.body;
       const ukBtn = document.getElementById('btn-uk');
       const enBtn = document.getElementById('btn-en');
-
       function applyLang(lang){
         body.classList.toggle('lang-en', lang === 'en');
         localStorage.setItem(LANG_KEY, lang);
         ukBtn.classList.toggle('active', lang === 'uk');
         enBtn.classList.toggle('active', lang === 'en');
       }
-
       const saved = localStorage.getItem(LANG_KEY) || 'uk';
       applyLang(saved);
-
-      ukBtn.addEventListener('click', e=>{ e.preventDefault(); applyLang('uk'); });
-      enBtn.addEventListener('click', e=>{ e.preventDefault(); applyLang('en'); });
+      ukBtn.addEventListener('click', e=>{e.preventDefault();applyLang('uk');});
+      enBtn.addEventListener('click', e=>{e.preventDefault();applyLang('en');});
     })();
   </script>
 </body>
