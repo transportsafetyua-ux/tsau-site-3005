@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Програми — Асоціація сприяння безпеці на транспорті України</title>
   <style>
     :root{
@@ -15,48 +18,157 @@
       --between:0px;
       --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
     }
-    *{ box-sizing:border-box }
-    html,body{ height:100%; margin:0; }
-    body{
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html, body{
+      width:100%;
+      height:100%;
       font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background-color: var(--page-bg);
-      background-image: url('../Home/buses.jpg');
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: contain;
-      min-height:100vh;
+      color:var(--text);
+      background-color:var(--page-bg);
+      background-image:url('../Home/buses.jpg');
+      background-repeat:no-repeat;
+      background-position:center top;
+      background-size:contain;
       display:flex;
       flex-direction:column;
-      padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
+      justify-content:flex-start;
+      align-items:stretch;
+      overflow-x:hidden;
     }
+
+    /* Двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    header{ background: var(--brand); color:#fff; padding:12px 18px; display:flex; align-items:center; gap:16px; }
+    /* ===== DESKTOP (НЕ ЧІПАЄМО, застосовується для >1200px) ===== */
+    header{
+      background: var(--brand);
+      color:#fff;
+      padding:12px 18px;
+      display:flex; align-items:center; gap:16px;
+    }
     .brand{ font-weight:700; font-size:32px; white-space:nowrap; color:#fff; }
     nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
     nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
     nav a:hover{ text-decoration:underline; }
     .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
-    .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25);}
-    .lang-btn.active{ background: rgba(255,255,255,.18);}
+    .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
+    .lang-btn.active{ background: rgba(255,255,255,.18); }
 
     main{ flex:1 0 auto; padding:16px; }
     .page{
       max-width:920px; margin:72px auto 24px; padding:16px 20px;
       background: rgba(255,255,255,0.78); border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.15); backdrop-filter: blur(1px);
-      text-align:center;
     }
     .page h1{ margin:0 0 12px 0; font-size:28px; line-height:1.25; color:#0a2f66; }
+    .page p{ margin:0 0 10px 0; line-height:1.6; }
 
-    .bottom-fixed{ position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none;}
-    .bottom-inner{ width: 100%; display:flex; flex-direction:column; gap: var(--between); pointer-events:auto;}
-    .bottom-bar{ background: var(--brand); height: var(--ticker-h); width:100%; display:flex; align-items:center; justify-content:center; overflow:hidden;}
-    .marquee{ display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px;}
-    @keyframes scroll{ 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
-    footer{ background: var(--page-bg); height: var(--footer-h); width:100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222;}
+    .bottom-fixed{ position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none; }
+    .bottom-inner{ width: 100%; display: flex; flex-direction: column; gap: var(--between); pointer-events: auto; }
+    .bottom-bar{ background: var(--brand); height: var(--ticker-h); width: 100%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .marquee{ display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px; }
+    @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
+    footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
+
+    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) — СИНХРОНІЗОВАНО З ГОЛОВНОЮ ===== */
+    @media (max-width:1200px){
+      /* фон та зображення — від краю до краю, без дублювань */
+      html, body{
+        background-position:center top;
+        background-size:cover;
+        min-height:100dvh;
+        align-items:stretch;
+      }
+
+      /* ШАПКА: назва + мовні кнопки в одному рівні, вкладки знизу */
+      header{
+        display:grid;
+        grid-template-columns: 1fr auto;
+        grid-auto-rows:auto;
+        align-items:center;
+        gap:10px 12px;
+        padding:12px 14px;
+        width:100%;
+        margin:0;
+      }
+      .brand{
+        font-size:clamp(20px,6vw,28px);
+        line-height:1.15;
+        color:#fff;
+        white-space:normal;
+      }
+      .top-actions{
+        justify-self:end;
+        gap:8px;
+      }
+      /* ряд вкладок під назвою */
+      nav{
+        display:flex;
+        grid-column:1 / -1;
+        justify-content:space-around;
+        gap:12px;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        flex-wrap:nowrap;
+      }
+      nav::-webkit-scrollbar{ height:0; }
+      nav a{ 
+        font-size:clamp(12px,3vw,14px);
+        white-space:nowrap;
+        flex-shrink:1;
+      }
+
+      /* нижні смуги */
+      .bottom-fixed{ bottom:0; }
+      .bottom-bar{ 
+        height:48px;
+        background: var(--brand);
+        width:100%;
+      }
+      .marquee{ font-size:15px; }
+      footer{ height:44px; font-size:13px; }
+    }
+
+    /* Портретна орієнтація: розтягнуті вкладки */
+    @media (max-width:1200px) and (orientation:portrait){
+      nav{
+        justify-content:space-around;
+      }
+    }
+
+    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки компактні */
+    @media (max-width:1200px) and (orientation:landscape){
+      .brand{
+        white-space:nowrap;
+        font-size:clamp(18px,3.2vw,26px);
+      }
+      nav{
+        display:flex;
+        grid-column:1 / -1;
+        justify-content:flex-start;
+        gap:12px;
+        flex-wrap:nowrap;
+        max-width:50%;
+      }
+      nav a{
+        font-size:clamp(12px,3vw,14px);
+        white-space:nowrap;
+      }
+      .page{
+        margin-top:16px;
+      }
+      header {
+        width:100%;
+        margin:0;
+        padding:12px 14px;
+      }
+      .bottom-bar {
+        background: var(--brand);
+        width:100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -65,6 +177,10 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
+    <div class="top-actions">
+      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+      <a href="#" class="lang-btn" id="btn-en">EN</a>
+    </div>
     <nav>
       <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
@@ -72,10 +188,6 @@
       <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
-    <div class="top-actions">
-      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
-      <a href="#" class="lang-btn" id="btn-en">EN</a>
-    </div>
   </header>
 
   <main>
@@ -84,8 +196,10 @@
         <span class="t uk">Програми</span>
         <span class="t en">Programs</span>
       </h1>
-      <p class="t uk">На цій сторінці будуть посилання на навчальні та адвокаційні програми.</p>
-      <p class="t en">This page will contain links to training and advocacy programs.</p>
+      <p>
+        <span class="t uk">Наші програми спрямовані на підвищення безпеки та якості громадського транспорту в Україні через впровадження європейських стандартів, навчання фахівців та розробку інноваційних рішень для транспортної інфраструктури.</span>
+        <span class="t en">Our programs aim to enhance the safety and quality of public transport in Ukraine through the implementation of EU standards, professional training, and the development of innovative solutions for transport infrastructure.</span>
+      </p>
     </section>
   </main>
 
@@ -93,8 +207,8 @@
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</span>
-          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ</span>
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
+          <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
       <footer>©2018 TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE</footer>
