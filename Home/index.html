@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Головна — Асоціація сприяння безпеці на транспорті України</title>
   <style>
-    /* ПОВНИЙ CSS ІЗ site.css, ЩО ВІДНОВЛЮЄ ПЕРВИННИЙ МОБІЛЬНИЙ ВИГЛЯД */
+    /* ПОВНИЙ CSS ІЗ site.css ЗІ ЗМІНАМИ ДЛЯ .hero-card */
     :root{
       --brand:#0a3d91;
       --green:#274b36;
@@ -31,50 +31,18 @@
     .lang-en .t.en{ display:inline; }
     
     /* ШАПКА */
-    .top{
-      background:#284b36; /* темно-зелений як на скрині */
-      color:#fff;
-    }
+    .top{ background:#284b36; color:#fff; }
     .top .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding:12px var(--gap);
-      display:grid;
-      grid-template-columns: 1fr auto auto;
-      gap: var(--gap);
-      align-items:center;
+      max-width:1200px; margin:0 auto; padding:12px var(--gap);
+      display:grid; grid-template-columns: 1fr auto auto; gap: var(--gap); align-items:center;
     }
-    .brand{
-      margin:0;
-      font-size: clamp(18px, 2.2vw, 32px);
-      font-weight:800;
-    }
-    .nav{
-      display:flex;
-      gap:16px;
-    }
-    .nav a{
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      padding:6px 0;
-    }
+    .brand{ margin:0; font-size: clamp(18px, 2.2vw, 32px); font-weight:800; }
+    .nav{ display:flex; gap:16px; }
+    .nav a{ color:#fff; text-decoration:none; font-weight:600; padding:6px 0; }
     .nav a:hover{ text-decoration:underline; }
     .lang{ display:flex; gap:10px; }
-    .btn{
-      border:0;
-      background:#fff;
-      color:#274b36;
-      padding:6px 12px;
-      border-radius:10px;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .btn-ghost{
-      background:transparent;
-      color:#fff;
-      border:1px solid #ffffff88;
-    }
+    .btn{ border:0; background:#fff; color:#274b36; padding:6px 12px; border-radius:10px; font-weight:700; cursor:pointer; }
+    .btn-ghost{ background:transparent; color:#fff; border:1px solid #ffffff88; }
 
     /* ГЕРО з фоном */
     .hero{
@@ -92,46 +60,50 @@
       padding: clamp(16px, 3vw, 28px) clamp(18px, 4vw, 40px);
       text-align:center;
       max-width: 680px;
+      
+      /* <<< ЗМІНИ ДЛЯ ПІДЙОМУ ТА ЗМЕНШЕННЯ ТЕКСТУ >>> */
+      transform: translateY(-50%); 
+      margin-bottom: -50px; /* Компенсація, щоб підняття не перекривало наступний елемент */
+      /* <<< КІНЕЦЬ ЗМІН >>> */
     }
     .hero-card h2{
       margin:0 0 8px;
-      font-size: clamp(22px, 2.4vw, 28px);
+      /* Зменшення розміру шрифту приблизно на 10% */
+      font-size: clamp(20px, 2.0vw, 25px); 
       font-weight:800;
     }
     .hero-card p{
       margin:0;
-      font-size: clamp(16px, 1.6vw, 18px);
+      /* Зменшення розміру шрифту приблизно на 10% */
+      font-size: clamp(14px, 1.4vw, 16px);
     }
 
     /* світла смуга під фото */
     .page-strip{
       background: var(--page);
       height: clamp(48px, 9vw, 90px);
+      position: relative; /* Для коректного розміщення після підняття картки */
     }
 
     /* ФУТЕР */
-    .footer{
-      background: var(--footer);
-      color:#d7e3dc;
-    }
-    .footer .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding: 12px var(--gap);
-      text-align:center;
-      letter-spacing:.2px;
-      font-weight:600;
-    }
+    .footer{ background: var(--footer); color:#d7e3dc; }
+    .footer .wrap{ max-width:1200px; margin:0 auto; padding: 12px var(--gap); text-align:center; letter-spacing:.2px; font-weight:600; }
     .small{ font-size: 14px; }
 
     /* ВАЖЛИВО: ПРАВИЛА МОБІЛЬНОЇ ВЕРСІЇ З site.css */
     @media (max-width: 720px){
       .top .wrap{
-        grid-template-columns: 1fr; /* Перехід на один стовпець */
+        grid-template-columns: 1fr;
         gap:8px;
       }
-      .nav{ flex-wrap:wrap; }
-      .brand{ font-size: 20px; }
+      .nav{ flex-wrap:wrap; justify-content:center;}
+      .brand{ font-size: 20px; text-align:center; }
+      .lang{ justify-content:center; }
+      
+      /* АДАПТАЦІЯ hero-card ДЛЯ МОБІЛЬНОГО (забезпечення коректного вигляду) */
+      .hero-card{
+        margin-bottom: -100px; /* Збільшена компенсація для мобільного */
+      }
     }
   </style>
 </head>
@@ -189,7 +161,6 @@
       function applyLang(lang){
         body.classList.toggle('lang-en', lang === 'en');
         localStorage.setItem(LANG_KEY, lang);
-        // Змінюємо класи кнопок відповідно до стилів site.css
         ukBtn.classList.toggle('btn-ghost', lang === 'en');
         ukBtn.classList.toggle('btn', lang === 'uk');
         enBtn.classList.toggle('btn-ghost', lang === 'uk');
