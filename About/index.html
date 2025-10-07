@@ -15,8 +15,8 @@
       --between:0px;
       --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
     }
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html,body{ height:100%; }
+    *{ box-sizing:border-box; margin:0; padding:0; } 
+    html,body{ height:100%; margin:0; }
     body{
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
@@ -24,20 +24,19 @@
       background-image: url('../Home/buses.jpg');
       background-repeat: no-repeat;
       background-position: center top;
-      background-size: contain;                 /* ПК — як було */
+      background-size: contain;
       min-height:100vh;
       display:flex;
       flex-direction:column;
       padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
-      overflow-x:hidden;
     }
 
-    /* двомовність (як на сайті) */
+    /* двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== ПК-ВЕРСІЯ (НЕ ЧІПАЄМО) ===== */
+    /* ===== DESKTOP (як було) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -56,9 +55,12 @@
 
     main{ flex:1 0 auto; padding:16px; }
     .page{
-      max-width:920px; margin:72px auto 24px; padding:16px 20px;
+      max-width:920px;
+      margin:72px auto 24px;
+      padding:16px 20px;
       background: rgba(255,255,255,0.78);
-      border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.15);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.15);
       backdrop-filter: blur(1px);
     }
     .page h1{ margin:0 0 12px 0; font-size:28px; line-height:1.25; color:#0a2f66; }
@@ -69,70 +71,42 @@
     .bottom-bar{ background: var(--brand); height: var(--ticker-h); width: 100%; display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .marquee{ display:inline-block; white-space:nowrap; animation: scroll 25s linear infinite; color:#fff; font-size:18px; font-weight:700; padding:0 12px; }
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
-    footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; white-space:nowrap; }
+    footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ (як на «Головна») — ПК НЕ ЧІПАЄМО ===== */
-    @media (max-width: 900px){
-      html, body{
-        background-position:center top;
-        background-size:cover;               /* повне покриття на мобільних */
-        min-height:100dvh;
-      }
+    /* ===== MOBILE (є ТІЛЬКИ ОДИН блок) ===== */
+    @media (max-width: 900px) {
+      /* фон */
+      body{ background-size: cover; }
 
-      /* Шапка: назва + мови в одному рівні; вкладки — під назвою */
-      header{
-        display:grid;
-        grid-template-columns: 1fr auto;     /* назва | мови */
-        grid-auto-rows:auto;
-        align-items:center;
-        gap:10px 12px;
-        padding:12px 14px;
-      }
-      .brand{
-        font-size:clamp(20px,6vw,28px);
-        line-height:1.15;
-        color:#fff;
-        white-space:normal;                   /* 2 рядки у портреті */
-      }
-      .top-actions{ justify-self:end; gap:8px; }
-      nav{
-        grid-column:1 / -1;                  /* ВКЛАДКИ ПІД НАЗВОЮ */
-        justify-content:space-around;
-        gap:12px;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
-      }
-      nav::-webkit-scrollbar{ height:0; }
-      nav a{ font-size:clamp(14px,3.4vw,16px); white-space:nowrap; }
+      /* шапка */
+      header{ flex-direction:column; align-items:center; padding:10px 14px; gap:8px; }
+      .brand{ font-size:24px; text-align:center; white-space:normal; }
+      nav{ margin-left:0; width:100%; justify-content:center; gap:10px; padding:0 8px; }
+      nav a{ font-size:13px; }
+      .top-actions{ margin-left:0; width:100%; justify-content:center; gap:8px; }
+      .lang-btn{ padding:4px 8px; font-size:13px; }
 
-      /* Напівпрозорий блок — власний текст "Про нас" */
-      .center-text-block{
-        position:absolute;
-        left:50%; top:58%;
-        transform:translate(-50%, -50%);
-        width:min(92vw,560px);
-        background:rgba(255,255,255,0.6);
-        color:var(--brand);
-        padding:12px 14px;
-        border-radius:10px;
-        text-align:center;
-        font-weight:700;
-        backdrop-filter: blur(1px);
+      /* ЄДИНИЙ напівпрозорий блок по центру автобуса */
+      .page{
+        max-width: 92vw;
+        margin: 22vh auto 16px;    /* позиція по висоті на скло центрального автобуса */
+        padding: 14px 16px;
       }
-      .center-text-block .line1{ font-size:clamp(18px,5vw,22px); }
-      .center-text-block .line23{ font-size:clamp(15px,4.2vw,19px); }
+      .page h1{ font-size:22px; margin-bottom:8px; }
+      .page p{ font-size:15px; }
 
-      /* Низ */
-      .bottom-fixed{ bottom:0; }
+      /* якщо десь залишилися інші напівпрозорі/герой-блоки — ховаємо їх у мобільному,
+         щоб НЕ було дублю. (Класи-пастки на всяк випадок) */
+      .center-text-block,
+      .hero-title,
+      .hero,
+      .overlay,
+      .mobile-dup { display:none !important; }
+
+      /* низ */
       .bottom-bar{ height:48px; }
       .marquee{ font-size:15px; }
-      footer{ height:44px; font-size:13px; }
-    }
-
-    /* МОБІЛЬНИЙ АЛЬБОМ — вкладки теж під назвою */
-    @media (max-width:900px) and (orientation:landscape){
-      .brand{ white-space:nowrap; font-size:clamp(18px,3.2vw,26px); }
-      .center-text-block{ top:55%; width:min(78vw,720px); }
+      footer{ height:40px; font-size:12px; }
     }
   </style>
 </head>
@@ -156,6 +130,7 @@
   </header>
 
   <main>
+    <!-- ЄДИНИЙ напівпрозорий блок -->
     <section class="page">
       <h1>
         <span class="t uk">Про нас</span>
@@ -167,14 +142,6 @@
       </p>
     </section>
   </main>
-
-  <!-- Мобільний напівпрозорий блок (свій текст для «Про нас») -->
-  <div class="center-text-block">
-    <div class="line1 t uk">Про нас</div>
-    <div class="line1 t en">About us</div>
-    <div class="line23 t uk">Експертна неурядова організація, що просуває європейські норми у громадських перевезеннях.</div>
-    <div class="line23 t en">An expert NGO promoting EU standards in public transport.</div>
-  </div>
 
   <div class="bottom-fixed">
     <div class="bottom-inner">
@@ -190,20 +157,19 @@
 
   <script>
     (function(){
-      const LANG_KEY = 'tsau_lang';
-      const body = document.body;
-      const ukBtn = document.getElementById('btn-uk');
-      const enBtn = document.getElementById('btn-en');
-      function applyLang(lang){
-        body.classList.toggle('lang-en', lang === 'en');
-        localStorage.setItem(LANG_KEY, lang);
-        ukBtn.classList.toggle('active', lang === 'uk');
-        enBtn.classList.toggle('active', lang === 'en');
+      const KEY='tsau_lang';
+      const body=document.body;
+      const uk=document.getElementById('btn-uk');
+      const en=document.getElementById('btn-en');
+      function apply(lang){
+        body.classList.toggle('lang-en', lang==='en');
+        localStorage.setItem(KEY,lang);
+        uk.classList.toggle('active',lang==='uk');
+        en.classList.toggle('active',lang==='en');
       }
-      const saved = localStorage.getItem(LANG_KEY) || 'uk';
-      applyLang(saved);
-      ukBtn.addEventListener('click', e=>{e.preventDefault();applyLang('uk');});
-      enBtn.addEventListener('click', e=>{e.preventDefault();applyLang('en');});
+      apply(localStorage.getItem(KEY)||'uk');
+      uk.addEventListener('click',e=>{e.preventDefault();apply('uk');});
+      en.addEventListener('click',e=>{e.preventDefault();apply('en');});
     })();
   </script>
 </body>
