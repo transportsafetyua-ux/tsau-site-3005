@@ -67,14 +67,14 @@
     }
     .hero-card h2{
       margin:0 0 8px;
-      /* Зменшення розміру шрифту приблизно на 10% */
-      font-size: clamp(20px, 2.0vw, 25px); 
+      /* Розмір шрифту ПК-версії залишається з site.css, змінено лише clamp */
+      font-size: clamp(20px, 2.4vw, 28px); 
       font-weight:800;
     }
     .hero-card p{
       margin:0;
-      /* Зменшення розміру шрифту приблизно на 10% */
-      font-size: clamp(14px, 1.4vw, 16px);
+      /* Розмір шрифту ПК-версії залишається з site.css, змінено лише clamp */
+      font-size: clamp(14px, 1.6vw, 18px);
     }
 
     /* світла смуга під фото */
@@ -99,9 +99,19 @@
       .brand{ font-size: 20px; text-align:center; }
       .lang{ justify-content:center; }
       
-      /* АДАПТАЦІЯ hero-card ДЛЯ МОБІЛЬНОГО (забезпечення коректного вигляду) */
+      /* АДАПТАЦІЯ hero-card ДЛЯ МОБІЛЬНОГО */
       .hero-card{
         margin-bottom: -100px;
+        /* Мобільні шрифти зменшено на 10% */
+        /* clamp(20px, 2.0vw, 25px) та clamp(14px, 1.4vw, 16px) */
+      }
+      
+      /* Чіткіше визначення мобільних шрифтів для h2/p в hero-card */
+      .hero-card h2{
+          font-size: clamp(18px, 2.0vw, 25px); /* ~20px на мобільному */
+      }
+      .hero-card p{
+          font-size: clamp(14px, 1.4vw, 16px); /* ~14px на мобільному */
       }
     }
   </style>
