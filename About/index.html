@@ -35,11 +35,12 @@
       justify-content:flex-start;
       align-items:center;
       overflow-x:hidden;
+
       /* резерв під нижні смуги — як на Головна */
       padding-bottom: calc(var(--ticker-h) + var(--between) + var(--footer-h) + var(--safe-gap));
     }
 
-    /* двомовність (ідентично Головній) */
+    /* двомовність — 1:1 з Головною */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
@@ -63,26 +64,19 @@
       white-space:nowrap;
       flex:1 1 auto;
     }
-    /* точнісінько ті ж стилі навігації */
     nav{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
     nav a{ color:var(--nav-sand); text-decoration:none; font-size:14px; }
     nav a:hover{ text-decoration:underline; }
 
-    .top-actions{
-      display:flex;
-      gap:8px;
-    }
+    .top-actions{ display:flex; gap:8px; }
     .lang-btn{
-      color:#fff;
-      text-decoration:none;
-      font-weight:700;
-      padding:4px 10px;
-      border-radius:6px;
+      color:#fff; text-decoration:none; font-weight:700;
+      padding:4px 10px; border-radius:6px;
       border:1px solid rgba(255,255,255,.25);
     }
     .lang-btn.active{ background:rgba(255,255,255,.18); }
 
-    /* Контент сторінки «Про нас» */
+    /* Контент «Про нас» */
     main{ width:100%; padding:16px; display:flex; justify-content:center; }
     .page{
       max-width:920px; margin:72px auto 24px; padding:16px 20px;
@@ -116,9 +110,7 @@
 
     /* ===== MOBILE (портрет і ландшафт) — 1:1 з Головною ===== */
     @media (max-width: 900px){
-      header{
-        padding:12px 14px; gap:10px; align-items:flex-start;
-      }
+      header{ padding:12px 14px; gap:10px; align-items:flex-start; }
       .brand{
         white-space:normal; text-align:center; width:100%;
         line-height:1.2; font-size:clamp(20px, 6vw, 28px);
@@ -150,7 +142,7 @@
       footer{ height:44px; font-size:13px; padding:0 8px; }
     }
 
-    /* ЛАНДШАФТ мобільний — як на Головній: назва в один рядок */
+    /* ЛАНДШАФТ мобільний — назва в один рядок (як на Головній) */
     @media (max-width: 900px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -167,7 +159,7 @@
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
 
-    <!-- ІДЕНТИЧНИЙ рядок, як на Головній -->
+    <!-- ІДЕНТИЧНИЙ рядок, як на «Головна» -->
     <div class="nav-row">
       <nav>
         <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
@@ -200,7 +192,7 @@
     <div class="bottom-inner">
       <div class="bottom-bar">
         <div class="marquee">
-          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – </span>
+          <span class="t uk">АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – TRANSPORTATION SAFETY ASSOCIATION OF UKRAЇNE – </span>
           <span class="t en">TRANSPORTATION SAFETY ASSOCIATION OF UKRAINE – АСОЦІАЦІЯ СПРИЯННЯ БЕЗПЕЦІ НА ТРАНСПОРТІ УКРАЇНИ – </span>
         </div>
       </div>
