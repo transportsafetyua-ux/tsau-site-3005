@@ -59,6 +59,7 @@
       display:flex; 
       align-items:center; 
       gap:12px; 
+      order: 1; /* Переміщуємо .top-actions після nav у flex */
     }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
@@ -183,6 +184,10 @@
       <span class="t uk">Асоціація сприяння безпеці на транспорті України</span>
       <span class="t en">Transportation Safety Association of Ukraine</span>
     </div>
+    <div class="top-actions">
+      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
+      <a href="#" class="lang-btn" id="btn-en">EN</a>
+    </div>
     <nav>
       <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
@@ -190,10 +195,6 @@
       <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
-    <div class="top-actions">
-      <a href="#" class="lang-btn" id="btn-uk">Укр</a>
-      <a href="#" class="lang-btn" id="btn-en">EN</a>
-    </div>
   </header>
 
   <main>
