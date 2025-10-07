@@ -59,7 +59,6 @@
       display:flex; 
       align-items:center; 
       gap:12px; 
-      order: 1; /* Переміщуємо .top-actions після nav у flex */
     }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
@@ -81,7 +80,6 @@
 
     /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) — СИНХРОНІЗОВАНО З ПУБЛІКАЦІЯМИ ===== */
     @media (max-width:1200px){
-      /* фон та зображення — від краю до краю, без дублювань */
       html, body{
         background-position:center top;
         background-size:cover;
@@ -89,7 +87,6 @@
         align-items:stretch;
       }
 
-      /* ШАПКА: назва + мовні кнопки в одному рівні, вкладки знизу */
       header{
         display:grid;
         grid-template-columns: 1fr auto;
@@ -110,7 +107,6 @@
         justify-self:end;
         gap:8px;
       }
-      /* ряд вкладок під назвою */
       nav{
         display:flex;
         grid-column:1 / -1;
@@ -127,7 +123,6 @@
         flex-shrink:1;
       }
 
-      /* нижні смуги */
       .bottom-fixed{ bottom:0; }
       .bottom-bar{ 
         height:48px;
@@ -138,14 +133,12 @@
       footer{ height:44px; font-size:13px; }
     }
 
-    /* Портретна орієнтація: розтягнуті вкладки */
     @media (max-width:1200px) and (orientation:portrait){
       nav{
         justify-content:space-around;
       }
     }
 
-    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки компактні */
     @media (max-width:1200px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
