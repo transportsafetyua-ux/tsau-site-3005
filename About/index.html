@@ -39,7 +39,7 @@
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (НЕ ЧІПАЄМО) ===== */
+    /* ===== DESKTOP (НЕ ЧІПАЄМО, застосовується для >1200px) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -69,8 +69,8 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ (до 900px) — СИНХРОНІЗОВАНО З ГОЛОВНОЮ ===== */
-    @media (max-width:900px){
+    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) — СИНХРОНІЗОВАНО З ГОЛОВНОЮ ===== */
+    @media (max-width:1200px){
       /* фон та зображення — від краю до краю, без дублювань */
       html, body{
         background-position:center top;
@@ -99,6 +99,7 @@
       }
       /* ряд вкладок під назвою */
       nav{
+        display:flex;
         grid-column:1 / -1;
         justify-content:space-around;
         gap:12px;
@@ -115,8 +116,8 @@
       footer{ height:44px; font-size:13px; }
     }
 
-    /* Альбомний мобільний: назва в один рядок, мови праворуч, вкладки під назвою */
-    @media (max-width:900px) and (orientation:landscape){
+    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки під назвою */
+    @media (max-width:1200px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
         font-size:clamp(18px,3.2vw,26px);
