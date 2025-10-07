@@ -42,7 +42,7 @@
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (НЕ ЧІПАЄМО, застосовується для >1200px) ===== */
+    /* ===== DESKTOP (застосовується для >1200px) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -53,7 +53,14 @@
     nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
     nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
     nav a:hover{ text-decoration:underline; }
-    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
+    .top-actions{ 
+      margin-left:auto; 
+      margin-right:-18px;
+      display:flex; 
+      align-items:center; 
+      gap:12px; 
+      order: 1; /* Перемикач після nav, край справа */
+    }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
 
@@ -72,9 +79,8 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) — СИНХРОНІЗОВАНО З ГОЛОВНОЮ ===== */
+    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) ===== */
     @media (max-width:1200px){
-      /* фон та зображення — від краю до краю, без дублювань */
       html, body{
         background-position:center top;
         background-size:cover;
@@ -82,7 +88,6 @@
         align-items:stretch;
       }
 
-      /* ШАПКА: назва + мовні кнопки в одному рівні, вкладки знизу */
       header{
         display:grid;
         grid-template-columns: 1fr auto;
@@ -100,13 +105,17 @@
         white-space:normal;
       }
       .top-actions{
+        grid-row: 1;
+        grid-column: 2;
         justify-self:end;
         gap:8px;
+        display:flex;
+        align-items:center;
       }
-      /* ряд вкладок під назвою */
       nav{
         display:flex;
         grid-column:1 / -1;
+        grid-row: 2;
         justify-content:space-around;
         gap:12px;
         overflow-x:auto;
@@ -120,7 +129,6 @@
         flex-shrink:1;
       }
 
-      /* нижні смуги */
       .bottom-fixed{ bottom:0; }
       .bottom-bar{ 
         height:48px;
@@ -131,14 +139,12 @@
       footer{ height:44px; font-size:13px; }
     }
 
-    /* Портретна орієнтація: розтягнуті вкладки */
     @media (max-width:1200px) and (orientation:portrait){
       nav{
         justify-content:space-around;
       }
     }
 
-    /* Альбомний мобільний/планшет: назва в один рядок, мови праворуч, вкладки компактні */
     @media (max-width:1200px) and (orientation:landscape){
       .brand{
         white-space:nowrap;
@@ -147,6 +153,7 @@
       nav{
         display:flex;
         grid-column:1 / -1;
+        grid-row: 2;
         justify-content:flex-start;
         gap:12px;
         flex-wrap:nowrap;
@@ -197,8 +204,8 @@
         <span class="t en">Publications</span>
       </h1>
       <p>
-        <span class="t uk">Ми публікуємо звіти, аналітичні матеріали та рекомендації щодо підвищення безпеки громадського транспорту, впровадження європейських стандартів та вдосконалення транспортної політики в Україні.</span>
-        <span class="t en">We publish reports, analytical materials, and recommendations on improving public transport safety, implementing EU standards, and enhancing transport policy in Ukraine.</span>
+        <span class="t uk">Тут розміщені наші статті та звіти щодо безпеки на транспорті.</span>
+        <span class="t en">Here are our articles and reports on transportation safety.</span>
       </p>
     </section>
   </main>
