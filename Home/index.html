@@ -152,13 +152,18 @@
         margin-top:320px;
       }
       .page p{ 
-        font-size: 1.5em;
+        font-size: clamp(12px, 4vw, 16px);
+        white-space: nowrap;
       }
     }
 
     @media (max-width:1200px) and (orientation:portrait){
       nav{
         justify-content:space-around;
+      }
+      .page p{ 
+        font-size: clamp(10px, 3.5vw, 14px);
+        white-space: nowrap;
       }
     }
 
@@ -193,7 +198,8 @@
         width:100%;
       }
       .page p{ 
-        font-size: 1.5em;
+        font-size: clamp(14px, 4.5vw, 18px);
+        white-space: nowrap;
       }
     }
   </style>
