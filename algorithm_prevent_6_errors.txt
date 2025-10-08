@@ -1,0 +1,176 @@
+ALGORITHM: PREVENT THE 6 RECURRING ERRORS (WEB GITHUB + TERMINAL WORKFLOW)
+Author: ChatGPT (GPT-5 Thinking)
+Context: You edit files via GitHub in the browser and use Terminal for git operations. The goal is to keep the desktop version untouched, make mobile changes safely, and avoid the six common mistakes.
+
+====================================================================
+0) ONE-TIME SETUP (SAFETY NET)
+====================================================================
+A0. Verify you are in the correct repo (Terminal):
+    pwd
+    git rev-parse --show-toplevel
+    git remote -v        # must show transportsafetyua-ux/tsau-site-3005.git
+    git branch --show-current
+
+A1. Create a safety tag of a known-good state (e.g., 20:23):
+    git fetch origin
+    git tag -f safe-2025-10-05-20-23 $(git rev-list -n1 --before="2025-10-05 20:23" origin/main)
+    git push -f origin safe-2025-10-05-20-23
+
+A2. Future rollback (if ever needed):
+    git fetch origin
+    git reset --hard origin/safe-2025-10-05-20-23
+    git push --force-with-lease origin main
+
+
+====================================================================
+1) ERROR #1 — WRONG RELATIVE PATHS (CSS/IMAGES)
+====================================================================
+Symptom: Page looks “naked” (black text / white bg), styles not applied; images missing.
+Root cause: Home/index.html is in /Home/, while site.css and buses.jpg are in the repo root.
+
+RULES:
+R1. In Home/index.html, CSS link MUST be:
+    <link rel="stylesheet" href="../site.css">
+R2. For an <img> from repo root: src="../buses.jpg"
+R3. For a CSS background in site.css: .hero { background: url("../buses.jpg") center/cover no-repeat; }
+
+DO (browser GitHub):
+- Edit Home/index.html → ensure the <head> contains exactly:
+  <link rel="stylesheet" href="../site.css">
+CHECK:
+- After commit, open DevTools → Network → reload (Cmd+Shift+R) → site.css and buses.jpg MUST be 200 OK (not 404).
+
+
+====================================================================
+2) ERROR #2 — DOUBLE HERO IMAGE (BOTH BACKGROUND AND <img>)
+====================================================================
+Symptom: Duplicated buses photo or odd spacing.
+Root cause: Using BOTH a CSS background AND an <img> for the same hero section.
+
+RULES:
+R4. Use ONE source only: EITHER CSS background OR a single <img>, not both.
+
+DO:
+- If site.css already sets .hero { background: url(...) }, then in Home/index.html do NOT add <img> inside .hero.
+- If you prefer <img>, then REMOVE the background rule for .hero in site.css (or override it with background:none).
+
+CHECK:
+- Visual: only one buses photo appears in hero.
+- DevTools Elements: .hero contains either background-image OR one <img>, never both.
+
+
+====================================================================
+3) ERROR #3 — MOBILE CSS OVERRIDES DESKTOP
+====================================================================
+Symptom: Tabs/buttons look different on desktop after a “mobile fix”.
+Root cause: Global selectors defined outside media-queries or with higher specificity.
+
+RULES:
+R5. ALL mobile-only rules MUST live inside @media (max-width: 900px) { ... }.
+R6. NO color/shape changes in mobile block unless explicitly intended.
+R7. Prefer page scoping (if available): .page-home .nav a { ... } (optional).
+
+SAFE MOBILE BLOCK (paste inside <head>, before </head>):
+<style id="mobile-readability-fix">
+  @media (max-width: 900px){
+    html, body { overflow-x: hidden; }
+    .nav{ display:flex; flex-wrap:nowrap; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .nav a{ flex:0 0 auto; font-size:0.9rem; white-space:nowrap; line-height:1.1; }
+    .lang{ display:flex; gap:8px; }
+    .hero{ aspect-ratio:3/2; background-size:cover; background-position:center; }
+    .overlay{
+      left:50%; transform:translate(-50%,-50%); top:72%;
+      width:min(92vw,540px); padding:14px 16px; border-radius:14px;
+    }
+    .overlay h2{ font-size:clamp(17px,3.8vw,20px); line-height:1.25; }
+    .overlay p { font-size:clamp(15px,3.4vw,18px); line-height:1.35; }
+    .ticker{ height:48px; } .ticker__track{ font-size:15px; animation-duration:32s; }
+  }
+  @media (max-width:360px){ .nav a{ font-size:0.86rem; } .overlay{ width:95vw; padding:12px 14px; } }
+  @media (max-height:420px) and (orientation:landscape){ .overlay{ top:68%; } }
+</style>
+
+CHECK:
+- Desktop width > 900px: no visual changes.
+- Mobile width < 900px: only layout/resizing, no color/style changes.
+
+
+====================================================================
+4) ERROR #4 — OVERLAY ABOVE MENU (Z-INDEX)
+====================================================================
+Symptom: Language switcher or tabs are not clickable.
+Root cause: Overlay has higher z-index than the header/navigation.
+
+RULES:
+R8. Layer order (top → bottom):
+    .topbar, .nav, .lang : z-index: 5
+    .overlay             : z-index: 2
+    hero image/background: z-index: 1
+
+DO:
+- Ensure CSS contains:
+  .topbar, .nav, .lang { position: relative; z-index: 5; }
+  .overlay { position: absolute; z-index: 2; }
+
+CHECK:
+- DevTools → Elements → hover elements to see stacking context; click tests on mobile.
+
+
+====================================================================
+5) ERROR #5 — EDITS IN THE WRONG REPOSITORY/COPY
+====================================================================
+Symptom: You push, but the live site does not reflect the change.
+Root cause: Editing a different local folder or a different repo/branch than the one that powers Pages.
+
+RULES:
+R9. Use the exact repo URL in the browser: https://github.com/transportsafetyua-ux/tsau-site-3005
+R10. In Terminal before any git command, verify:
+     pwd
+     git rev-parse --show-toplevel
+     git remote -v
+     git branch --show-current
+
+DO (Terminal):
+- If unsure, clone a fresh copy to a temp folder:
+  rm -rf /tmp/tsau-site-3005 &&   git clone https://github.com/transportsafetyua-ux/tsau-site-3005.git /tmp/tsau-site-3005 &&   cd /tmp/tsau-site-3005
+- Work ONLY in this folder for Terminal commands tied to the live repo.
+
+CHECK:
+- After commit on GitHub web, `git fetch origin && git log --oneline -n 3 origin/main` must show your commit.
+
+
+====================================================================
+6) ERROR #6 — RUSHED PUSHES WITHOUT LOCAL/WEB CHECK
+====================================================================
+Symptom: Breaking changes appear live; fixing takes time.
+Root cause: Pushing untested changes; cache confusion.
+
+RULES:
+R11. One change → one file → one commit.
+R12. Always verify build and cache.
+
+DO (Web GitHub + Browser):
+1) Commit the single change via “Edit this file”.
+2) Open repo → Actions → wait for “pages build and deployment” ✅ green.
+3) Hard refresh the page: Cmd+Shift+R OR append ?v=timestamp to URL.
+4) View Source (Cmd+Option+U) → search for a version comment like <!-- v: mob-fix-YYYYMMDD-HHMM --> added to the edited file to ensure the server serves the new version.
+
+OPTIONAL Local Preview (Terminal):
+- From repo root:
+  python3 -m http.server 8080
+- Open http://localhost:8080/Home/index.html
+- DevTools → Responsive mode (375–430px, 768–820px). Network → ensure CSS/IMG are 200 OK, not 404.
+
+====================================================================
+END-TO-END CHECKLIST FOR EACH CHANGE (PRINT THIS)
+====================================================================
+[ ] I am in the correct repo (URL + Terminal checks).
+[ ] Home/index.html uses ../site.css and (if needed) ../buses.jpg.
+[ ] Only ONE hero image source: CSS background OR a single <img>.
+[ ] All mobile tweaks live strictly inside @media (max-width: 900px).
+[ ] z-index order: .topbar/.nav/.lang (5) > .overlay (2) > image (1).
+[ ] Commit message notes what changed (one file only).
+[ ] Actions build is green; hard refresh done; “View Source” shows my version comment.
+[ ] Desktop unchanged; mobile readable; tabs/lang clickable; overlay scaled.
+
+— END —
