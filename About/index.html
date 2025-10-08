@@ -26,7 +26,6 @@
       font-family: Arial, Helvetica, sans-serif;
       color:var(--text);
       background-color:var(--page-bg);
-      /* ФІКС: правильний шлях до зображення */
       background-image:url('../Home/buses.jpg');
       background-repeat:no-repeat;
       background-position:center top;
@@ -38,12 +37,11 @@
       overflow-x:hidden;
     }
 
-    /* Двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (застосовується для >1200px) ===== */
+    /* ===== DESKTOP (>1200px) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -54,14 +52,7 @@
     nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
     nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
     nav a:hover{ text-decoration:underline; }
-    .top-actions{ 
-      margin-left:auto; 
-      margin-right:-18px;
-      display:flex; 
-      align-items:center; 
-      gap:12px; 
-      order: 1;
-    }
+    .top-actions{ margin-left:auto; display:flex; align-items:center; gap:12px; }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
 
@@ -91,13 +82,12 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) ===== */
+    /* ===== МОБІЛЬНІ (до 1200px) ===== */
     @media (max-width:1200px){
       html, body{
         background-position:center top;
         background-size:cover;
         min-height:100dvh;
-        align-items:stretch;
       }
 
       header{
@@ -108,7 +98,6 @@
         gap:10px 12px;
         padding:12px 14px;
         width:100%;
-        margin:0;
       }
       .brand{
         font-size:clamp(20px,6vw,28px);
@@ -132,78 +121,29 @@
         gap:12px;
         overflow-x:auto;
         -webkit-overflow-scrolling:touch;
-        flex-wrap:nowrap;
       }
       nav::-webkit-scrollbar{ height:0; }
-      nav a{ 
-        font-size:clamp(12px,3vw,14px);
-        white-space:nowrap;
-        flex-shrink:1;
+      nav a{ font-size:clamp(14px,3.4vw,16px); white-space:nowrap; }
+
+      /* Напівпрозорий блок — повна ширина, як у шапці */
+      .page{
+        width:100%;
+        margin: auto 0 calc(var(--ticker-h) + var(--footer-h) + 10px) 0;
+        padding:10px 16px;
+        background: rgba(255,255,255,0.78);
+        border-radius:0;
+        box-shadow:none;
+        position:relative;
+      }
+      .page p{ 
+        font-size:clamp(14px,3.4vw,16px);
+        text-align:center;
+        color:var(--brand);
       }
 
-      .bottom-fixed{ bottom:0; }
-      .bottom-bar{ 
-        height:48px;
-        background: var(--brand);
-        width:100%;
-      }
+      .bottom-bar{ height:48px; }
       .marquee{ font-size:15px; }
       footer{ height:44px; font-size:13px; }
-      .page{
-        margin-top:270px;
-        padding:14px 18px;
-      }
-      .page p{ 
-        font-size: clamp(14px, 4.7vw, 19px);
-        white-space: nowrap;
-        color: var(--brand);
-      }
-    }
-
-    @media (max-width:1200px) and (orientation:portrait){
-      nav{
-        justify-content:space-around;
-      }
-      .page p{ 
-        font-size: clamp(12px, 4.1vw, 16px);
-        white-space: nowrap;
-      }
-    }
-
-    @media (max-width:1200px) and (orientation:landscape){
-      .brand{
-        white-space:nowrap;
-        font-size:clamp(18px,3.2vw,26px);
-      }
-      nav{
-        display:flex;
-        grid-column:1 / -1;
-        grid-row: 2;
-        justify-content:flex-start;
-        gap:12px;
-        flex-wrap:nowrap;
-        max-width:50%;
-      }
-      nav a{
-        font-size:clamp(12px,3vw,14px);
-        white-space:nowrap;
-      }
-      .page{
-        margin-top:270px;
-      }
-      header {
-        width:100%;
-        margin:0;
-        padding:12px 14px;
-      }
-      .bottom-bar {
-        background: var(--brand);
-        width:100%;
-      }
-      .page p{ 
-        font-size: clamp(16px, 5.3vw, 21px);
-        white-space: nowrap;
-      }
     }
   </style>
 </head>
