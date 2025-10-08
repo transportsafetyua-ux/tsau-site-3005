@@ -26,7 +26,8 @@
       font-family: Arial, Helvetica, sans-serif;
       color:var(--text);
       background-color:var(--page-bg);
-      background-image:url('buses.jpg');
+      /* ФІКС: правильний шлях до зображення */
+      background-image:url('../Home/buses.jpg');
       background-repeat:no-repeat;
       background-position:center top;
       background-size:contain;
@@ -59,7 +60,7 @@
       display:flex; 
       align-items:center; 
       gap:12px; 
-      order: 1; /* Перемикач після nav, край справа */
+      order: 1;
     }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
