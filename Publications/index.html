@@ -37,12 +37,11 @@
       overflow-x:hidden;
     }
 
-    /* Двомовність */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (застосовується для >1200px) ===== */
+    /* ===== DESKTOP (>1200px) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -66,11 +65,37 @@
 
     main{ flex:1 0 auto; padding:16px; }
     .page{
-      max-width:920px; margin:72px auto 24px; padding:16px 20px;
-      background: rgba(255,255,255,0.78); border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.15); backdrop-filter: blur(1px);
+      width: fit-content;
+      max-width: 900px;
+      margin: 72px auto 24px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.78); 
+      border-radius:12px; 
+      box-shadow:0 6px 18px rgba(0,0,0,.15); 
+      backdrop-filter: blur(1px);
     }
-    .page h1{ margin:0 0 12px 0; font-size:28px; line-height:1.25; color:#0a2f66; }
-    .page p{ margin:0 0 10px 0; line-height:1.6; }
+    .publication{
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .publication h2{
+      margin: 0 0 10px 0;
+      font-size: 1.2em;
+      color: var(--brand);
+    }
+    .publication iframe{
+      width: 100%;
+      height: 400px;
+      border: none;
+      overflow: hidden;
+    }
+    .publication p{
+      margin: 0 0 10px 0;
+      line-height: 1.6;
+      color: var(--brand);
+    }
 
     .bottom-fixed{ position: fixed; left: 0; bottom: var(--safe-gap); width: 100%; z-index: 1000; pointer-events: none; }
     .bottom-inner{ width: 100%; display: flex; flex-direction: column; gap: var(--between); pointer-events: auto; }
@@ -79,13 +104,12 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ ТА ПЛАНШЕТИ (до 1200px) ===== */
+    /* ===== МОБІЛЬНІ (до 1200px) ===== */
     @media (max-width:1200px){
       html, body{
         background-position:center top;
         background-size:cover;
         min-height:100dvh;
-        align-items:stretch;
       }
 
       header{
@@ -96,7 +120,6 @@
         gap:10px 12px;
         padding:12px 14px;
         width:100%;
-        margin:0;
       }
       .brand{
         font-size:clamp(20px,6vw,28px);
@@ -112,68 +135,40 @@
         display:flex;
         align-items:center;
       }
+
       nav{
         display:flex;
         grid-column:1 / -1;
         grid-row: 2;
-        justify-content:space-around;
-        gap:12px;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
+        justify-content:space-between;
+        gap: min(8px, 2vw);
+        overflow-x:hidden;
         flex-wrap:nowrap;
-      }
-      nav::-webkit-scrollbar{ height:0; }
-      nav a{ 
-        font-size:clamp(12px,3vw,14px);
-        white-space:nowrap;
-        flex-shrink:1;
-      }
-
-      .bottom-fixed{ bottom:0; }
-      .bottom-bar{ 
-        height:48px;
-        background: var(--brand);
-        width:100%;
-      }
-      .marquee{ font-size:15px; }
-      footer{ height:44px; font-size:13px; }
-    }
-
-    @media (max-width:1200px) and (orientation:portrait){
-      nav{
-        justify-content:space-around;
-      }
-    }
-
-    @media (max-width:1200px) and (orientation:landscape){
-      .brand{
-        white-space:nowrap;
-        font-size:clamp(18px,3.2vw,26px);
-      }
-      nav{
-        display:flex;
-        grid-column:1 / -1;
-        grid-row: 2;
-        justify-content:flex-start;
-        gap:12px;
-        flex-wrap:nowrap;
-        max-width:50%;
       }
       nav a{
-        font-size:clamp(12px,3vw,14px);
+        font-size:clamp(12px, 3.2vw, 14px);
         white-space:nowrap;
+        flex:0 1 auto;
+        text-align:center;
       }
+
       .page{
-        margin-top:16px;
-      }
-      header {
         width:100%;
-        margin:0;
-        padding:12px 14px;
+        margin: 16px 0 calc(var(--ticker-h) + var(--footer-h) + 10px) 0;
+        padding:10px 16px;
+        background: rgba(255,255,255,0.78);
+        border-radius:0;
+        box-shadow:none;
+        position:relative;
       }
-      .bottom-bar {
-        background: var(--brand);
-        width:100%;
+      .publication{
+        margin-bottom: 15px;
+      }
+      .publication iframe{
+        height: 300px;
+      }
+      .publication h2{
+        font-size: 1em;
       }
     }
   </style>
@@ -192,21 +187,27 @@
       <a href="../Home/index.html"><span class="t uk">Головна</span><span class="t en">Home</span></a>
       <a href="../About/index.html"><span class="t uk">Про нас</span><span class="t en">About</span></a>
       <a href="../Programs/index.html"><span class="t uk">Програми</span><span class="t en">Programs</span></a>
-      <a href="../Publications/index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
+      <a href="index.html"><span class="t uk">Публікації</span><span class="t en">Publications</span></a>
       <a href="../Contacts/index.html"><span class="t uk">Контакти</span><span class="t en">Contacts</span></a>
     </nav>
   </header>
 
   <main>
     <section class="page">
-      <h1>
-        <span class="t uk">Публікації</span>
-        <span class="t en">Publications</span>
-      </h1>
-      <p>
-        <span class="t uk">Тут розміщені наші статті та звіти щодо безпеки на транспорті.</span>
-        <span class="t en">Here are our articles and reports on transportation safety.</span>
-      </p>
+      <div class="publication">
+        <h2 class="t uk">Лібералізація = Монополізація 01.09.2025</h2>
+        <h2 class="t en">Liberalization = Monopolization 01.09.2025</h2>
+        <iframe class="t uk" src="https://www.youtube.com/embed/sQoOr48XHk8" width="100%" height="400" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="t en" src="https://www.youtube.com/embed/c8lXl_ckjKY" width="100%" height="400" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="t uk">Злочинна монополізація прибуткових маршрутів в Україні під виглядом лібералізації за кошти європейських платників податків. Зміна влади в Україні не вплинула на постійні "успішні" спроби кримінального бізнесу виокремити прибуткову частину автобусних маршрутів громадського транспорту всупереч Регламенту ЄС 1370, який вже мав би бути імплементований в українське законодавство. Крайній термін минув 1 вересня 2025 року.</p>
+        <p class="t en">Criminal monopolization of profitable routes in Ukraine under the guise of liberalization, funded by European taxpayers. The change of power in Ukraine has not affected the ongoing “successful” attempts of the criminal business sector to isolate the profitable segments of public bus routes — in direct violation of EU Regulation 1370, which should already have been implemented into Ukrainian legislation. The final deadline passed on September 1, 2025.</p>
+      </div>
+      <div class="publication">
+        <h2 class="t uk">Лібералізація = Монополізація 01.09.2025</h2>
+        <h2 class="t en">Liberalization = Monopolization 01.09.2025</h2>
+        <iframe src="https://www.youtube.com/embed/c8lXl_ckjKY" width="100%" height="400" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p>Тема: безпека на дорогах.</p>
+      </div>
     </section>
   </main>
 
