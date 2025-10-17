@@ -17,7 +17,7 @@
       --footer-h:44px;
       --between:0px;
       --safe-gap: calc(10px + env(safe-area-inset-bottom, 0px));
-      --header-h: 80px; /* Висота шапки */
+      --header-h: 80px;
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
@@ -40,7 +40,6 @@
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
 
-    /* ===== DESKTOP (>1200px) ===== */
     header{
       background: var(--brand);
       color:#fff;
@@ -57,21 +56,14 @@
     nav{ display:flex; gap:14px; margin-left:10px; flex-wrap:wrap; }
     nav a{ color: var(--nav-sand); text-decoration:none; font-size:14px; }
     nav a:hover{ text-decoration:underline; }
-    .top-actions{ 
-      margin-left:auto; 
-      margin-right:-18px;
-      display:flex; 
-      align-items:center; 
-      gap:12px; 
-      order: 1;
-    }
+    .top-actions{ margin-left:auto; margin-right:-18px; display:flex; align-items:center; gap:12px; order: 1; }
     .lang-btn{ color:#fff; text-decoration:none; font-weight:700; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,.25); }
     .lang-btn.active{ background: rgba(255,255,255,.18); }
 
     main{
       flex: 1 0 auto;
       padding: calc(var(--header-h) + 16px) 16px var(--safe-gap);
-      overflow-y: auto; /* Дозволяє прокручування вмісту */
+      overflow-y: auto;
       height: calc(100vh - var(--header-h) - var(--ticker-h) - var(--footer-h) - var(--between));
     }
     .page{
@@ -79,9 +71,9 @@
       max-width: 900px;
       margin: 0 auto 24px;
       padding: 16px 20px;
-      background: rgba(255,255,255,0.78); 
-      border-radius:12px; 
-      box-shadow:0 6px 18px rgba(0,0,0,.15); 
+      background: rgba(255,255,255,0.78);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.15);
       backdrop-filter: blur(1px);
     }
     .publication{
@@ -106,7 +98,7 @@
       color: var(--text);
     }
 
-    .bottom-fixed{ 
+    .bottom-fixed{
       position: fixed;
       bottom: var(--safe-gap);
       left: 0;
@@ -120,14 +112,12 @@
     @keyframes scroll{ 0%{ transform:translateX(100%); } 100%{ transform:translateX(-100%); } }
     footer{ background: var(--page-bg); height: var(--footer-h); width: 100%; display:flex; align-items:flex-start; justify-content:center; text-align:center; font-size:14px; color:#222; }
 
-    /* ===== МОБІЛЬНІ (до 1200px) ===== */
     @media (max-width:1200px){
       html, body{
         background-position:center top;
         background-size:cover;
         min-height:100dvh;
       }
-
       header{
         display:grid;
         grid-template-columns: 1fr auto;
@@ -136,61 +126,17 @@
         gap:10px 12px;
         padding:12px 14px;
         width:100%;
-        --header-h: 70px; /* Зменшена висота для мобільних */
+        --header-h: 70px;
       }
-      .brand{
-        font-size:clamp(20px,6vw,28px);
-        line-height:1.15;
-        color:#fff;
-        white-space:normal;
-      }
-      .top-actions{
-        grid-row: 1;
-        grid-column: 2;
-        justify-self:end;
-        gap:8px;
-        display:flex;
-        align-items:center;
-      }
-
-      nav{
-        display:flex;
-        grid-column:1 / -1;
-        grid-row: 2;
-        justify-content:space-between;
-        gap: min(8px, 2vw);
-        overflow-x:hidden;
-        flex-wrap:nowrap;
-      }
-      nav a{
-        font-size:clamp(12px, 3.2vw, 14px);
-        white-space:nowrap;
-        flex:0 1 auto;
-        text-align:center;
-      }
-
-      main{
-        padding: calc(var(--header-h) + 16px) 16px var(--safe-gap);
-        height: calc(100vh - var(--header-h) - var(--ticker-h) - var(--footer-h) - var(--between));
-      }
-      .page{
-        width:100%;
-        margin: 0 0 calc(var(--ticker-h) + var(--footer-h) + 10px) 0;
-        padding:10px 16px;
-        background: rgba(255,255,255,0.78);
-        border-radius:0;
-        box-shadow:none;
-        position:relative;
-      }
-      .publication{
-        margin-bottom: 15px;
-      }
-      .publication img{
-        height: auto;
-      }
-      .publication h2{
-        font-size: 1em;
-      }
+      .brand{ font-size:clamp(20px,6vw,28px); line-height:1.15; color:#fff; white-space:normal; }
+      .top-actions{ grid-row: 1; grid-column: 2; justify-self:end; gap:8px; display:flex; align-items:center; }
+      nav{ display:flex; grid-column:1 / -1; grid-row: 2; justify-content:space-between; gap: min(8px, 2vw); overflow-x:hidden; flex-wrap:nowrap; }
+      nav a{ font-size:clamp(12px, 3.2vw, 14px); white-space:nowrap; flex:0 1 auto; text-align:center; }
+      main{ padding: calc(var(--header-h) + 16px) 16px var(--safe-gap); height: calc(100vh - var(--header-h) - var(--ticker-h) - var(--footer-h) - var(--between)); }
+      .page{ width:100%; margin: 0 0 calc(var(--ticker-h) + var(--footer-h) + 10px) 0; padding:10px 16px; background: rgba(255,255,255,0.78); border-radius:0; box-shadow:none; position:relative; }
+      .publication{ margin-bottom: 15px; }
+      .publication img{ height: auto; }
+      .publication h2{ font-size: 1em; }
     }
   </style>
 </head>
@@ -228,8 +174,8 @@
         <h2 class="t en">Imitation Integrity and Real Corruption</h2>
         <p class="t uk">Імітаційна доброчесність та реальна корупція<br>____________________________<br>Життєвий анекдот:<br>- Ти читав на сторінці Укртрансбезпеки, фахівці антикорупційних організацій стверджують, що корупції в керівництві ДСБТ не було і стало ще менше.<br>- А люди скаржаться на масштабну корупцію, прописану навіть в нормативних актах.<br>- Так. Але ж люди не фахівці в антикорупційній діяльності.<br>Транспортна спільнота звернула увагу на новий тренд керівництва ДСБТ – постійна участь у заходах грантових проектів, які проводять громадські організації. Замість виконання своїх функціональних обов’язків відповідно до «Положення про ДСБТ», посадовці в робочий час займаються створенням імітації доброчесності.<br>Чи є питання до цих громадських організацій? Ні. Вони відпрацьовують отримані кошти та створюють картинку для звітів. Ще менше питань до донорів. Їх гроші — їх рішення. Достатньо імітаційних картинок — їх проблеми.<br>А от питання є до тих, хто спрямовує і координує діяльність ДСБТ.<br>Хоча, ні. Є питання і до деяких громадських організацій, з яких створено так звану раду доброчесності. Адже мета створення цієї «Ради доброчесності» задекларована антикорупційна. І критерієм відбору організацій нібито був досвід в антикорупційній діяльності.<br>Ми зацікавились не тільки способом формування антикорупційної ради, а й корупційною діяльністю окремих її членів. Це надалі, а сьогодні фотоколаж «Імітація-Дійсність»<br>На фото 1 — участь керівника ДСБТ у постановочних заходах у робочий час.<br>На фото 2 — приклад реальної масштабної корупційної схеми, яку неможливо реалізувати без сприяння керівництва ДСБТ</p>
         <p class="t en">Imitation Integrity and Real Corruption<br>____________________________<br>Life anecdote:<br>- Have you read on the Uktransbezpeka page that anti-corruption organization experts claim there was no corruption in the DGBT leadership and it has decreased even more?<br>- Yet people complain about widespread corruption, even embedded in regulatory acts.<br>- Yes. But people are not experts in anti-corruption activities.<br>The transportation community has noticed a new trend in the DGBT leadership – constant participation in events of grant-funded projects conducted by public organizations. Instead of fulfilling their functional duties according to the "DGBT Regulation," officials are engaged in creating an imitation of integrity during working hours.<br>Are there any questions for these public organizations? No. They are fulfilling the funds they received and creating a picture for reports. Even fewer questions for the donors. Their money – their decision. Enough imitation pictures – their problem.<br>But there are questions for those who direct and coordinate the activities of DGBT.<br>However, no. There are also questions for some public organizations that form the so-called Integrity Council. After all, the declared goal of creating this "Integrity Council" is anti-corruption. And the criterion for selecting organizations was supposedly experience in anti-corruption activities.<br>We are interested not only in how the anti-corruption council was formed but also in the corrupt activities of some of its members. More on that later, but today we have a photo collage "Imitation-Reality"<br>Photo 1 – participation of the DGBT head in staged events during working hours.<br>Photo 2 – an example of a real large-scale corruption scheme that cannot be implemented without the support of DGBT leadership.</p>
-        <img src="images/фото 1.jpg" alt="Участь керівника ДСБТ у постановочних заходах">
-        <img src="images/фото 2.jpg" alt="Приклад корупційної схеми">
+        <img src="images/foto1.jpg" alt="Участь керівника ДСБТ у постановочних заходах">
+        <img src="images/foto2.jpg" alt="Приклад корупційної схеми">
       </div>
     </section>
   </main>
