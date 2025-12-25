@@ -1,5 +1,3 @@
-
-```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -38,9 +36,13 @@
       overflow-x:hidden;
     }
 
+    /* ЛОГІКА ПЕРЕМИКАННЯ МОВ */
     .t.en{ display:none; }
     .lang-en .t.uk{ display:none; }
     .lang-en .t.en{ display:inline; }
+    
+    /* ВИПРАВЛЕННЯ: Примусовий блочний вигляд для публікацій, щоб текст не налізав на заголовок в EN */
+    .lang-en .publication .t.en { display: block; }
 
     header{
       background: var(--brand);
@@ -178,6 +180,7 @@
         The unity of the expert community and community representatives is a clear signal: we will not allow the substitution of concepts and violation of legislation. Public transportation must operate according to EU rules and Ukrainian laws, not departmental interests that contradict common sense.</p>
         <img src="images/foto8.jpg" alt="Рада міст підтримала позицію">
       </div>
+
       <div class="publication">
         <h2 class="t uk">Лібералізація = Монополізація 01.09.2025</h2>
         <h2 class="t en">Liberalization = Monopolization 01.09.2025</h2>
@@ -236,5 +239,3 @@
   </script>
 </body>
 </html>
-
-```
